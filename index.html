@@ -124,6 +124,7 @@
         .modal-container {
             transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
             backdrop-filter: blur(0px);
+            z-index: 1000;
         }
         .modal-container.active {
             backdrop-filter: blur(10px);
@@ -138,6 +139,8 @@
             transform: translateY(20px);
             border-radius: 12px;
             overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .modal-container.active .modal-content {
             transform: translateY(0);
@@ -354,6 +357,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             transition: transform 0.3s ease;
+            z-index: 10;
         }
 
         .modal-close:hover {
@@ -467,6 +471,125 @@
             10% { opacity: 1; }
             90% { opacity: 1; }
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Burbuja flotante */
+        .floating-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .floating-bubble:hover {
+            transform: scale(1.15);
+            background: var(--accent-red-orange);
+            animation: none;
+        }
+
+        .bubble-content {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 300px;
+            background: rgba(44, 30, 58, 0.95);
+            border: 2px solid var(--accent-yellow);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .bubble-content.active {
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bubble-content h3 {
+            color: var(--accent-yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        .bubble-content a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+
+        .bubble-content a:hover {
+            background: rgba(240, 144, 60, 0.2);
+            transform: translateX(5px);
+        }
+
+        /* Estilos para luces y sombras */
+        .lights-shadows {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .lights, .shadows {
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .lights {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .shadows {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #F44336;
+        }
+
+        .lights h4, .shadows h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lights h4 {
+            color: #4CAF50;
+        }
+
+        .shadows h4 {
+            color: #F44336;
         }
     </style>
 </head>
@@ -627,6 +750,7 @@
             </div>
         </div>
 
+        <!-- DIAPOSITIVAS DETALLADAS DE LOS PROCESOS DE PAZ -->
         <div id="slide-12" class="slide text-left">
             <div class="content-card w-full max-w-5xl">
                 <h2 class="text-4xl animate-on-show">Caso: Sudáfrica</h2>
@@ -636,7 +760,7 @@
                 <blockquote class="victim-quote animate-on-show" style="animation-delay: 0.4s;">
                     <p class="typewriter"></p>
                 </blockquote>
-                <button class="tip-button absolute bottom-8 right-8" onclick="openModal('Memoria desde el Cuerpo', 'Catherine Walsh nos invita a preguntar: ¿Qué memorias guardan los cuerpos de las mujeres negras que no fueron contadas en la TRC? La memoria antirracista y feminista desafía las narrativas oficiales.')">+</button>
+                <button class="tip-button absolute bottom-8 right-8" onclick="openPeaceProcessModal('sudafrica')">+</button>
             </div>
         </div>
 
@@ -649,7 +773,7 @@
                 <blockquote class="victim-quote animate-on-show" style="animation-delay: 0.4s;">
                     <p class="typewriter"></p>
                 </blockquote>
-                 <button class="tip-button absolute bottom-8 right-8" onclick="openModal('Memoria en el Territorio', 'Los murales de Belfast y los muros de paz son inscripciones territoriales de la memoria en disputa. El territorio mismo es un actor que recuerda y divide.')">+</button>
+                 <button class="tip-button absolute bottom-8 right-8" onclick="openPeaceProcessModal('irlanda')">+</button>
             </div>
         </div>
         
@@ -662,7 +786,7 @@
                 <blockquote class="victim-quote animate-on-show" style="animation-delay: 0.4s;">
                     <p class="typewriter"></p>
                 </blockquote>
-                <button class="tip-button absolute bottom-8 right-8" onclick="openModal('Memoria, Cuerpo y Territorio', 'El genocidio maya fue una guerra contra los cuerpos y territorios indígenas. La memoria feminista y antirracista aquí es clave para entender la violencia sexual como arma de guerra y la lucha por la tierra como una lucha por la vida misma.')">+</button>
+                <button class="tip-button absolute bottom-8 right-8" onclick="openPeaceProcessModal('guatemala')">+</button>
             </div>
         </div>
 
@@ -829,6 +953,21 @@
 
     </div>
 
+    <!-- Burbuja flotante -->
+    <div class="floating-bubble" id="floating-bubble">
+        <i class="fas fa-comments"></i>
+        <div class="bubble-content" id="bubble-content">
+            <h3>¡Co-creemos juntos!</h3>
+            <p>Envía tus aportes u observaciones sobre el contenido:</p>
+            <a href="mailto:gihomara.aristizabal3906@unaula.edu.co?subject=Aportes sobre Cultura Política y Procesos de Paz">
+                <i class="fas fa-envelope"></i> gihomara.aristizabal3906@unaula.edu.co
+            </a>
+            <a href="https://www.linkedin.com/in/gihomara-aristizabal-morales-95507b115/" target="_blank">
+                <i class="fab fa-linkedin"></i> Conecta en LinkedIn
+            </a>
+        </div>
+    </div>
+
     <!-- Indicadores de progreso -->
     <div id="progress-indicator"></div>
     <div id="stepper">
@@ -871,6 +1010,18 @@
         </div>
     </div>
     
+    <!-- Modal para procesos de paz detallados -->
+    <div id="peace-process-modal-container" class="modal-container fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 hidden opacity-0">
+        <div id="peace-process-modal-content" class="modal-content p-8 max-w-4xl w-full relative rounded-lg text-left">
+            <div class="modal-header">
+                <h3 id="peace-process-modal-title" class="text-3xl font-bold mb-2 text-white"></h3>
+            </div>
+            <p id="peace-process-modal-context" class="text-base text-secondary mb-4"></p>
+            <div id="peace-process-modal-content-body" class="max-h-96 overflow-y-auto pr-4"></div>
+            <button onclick="closePeaceProcessModal()" class="modal-close">&times;</button>
+        </div>
+    </div>
+
     <!-- Botones de navegación principales -->
     <button id="prev-btn" class="nav-button">&#10094;</button>
     <button id="next-btn" class="nav-button">&#10095;</button>
@@ -937,6 +1088,92 @@
                     "Acuerdos de Oslo (palestino-israelí, 1993)",
                     "Proceso de Madrid (años 90)",
                     "Acuerdos de Abraham (2020)"
+                ]
+            }
+        };
+
+        // Datos detallados para los procesos de paz
+        const peaceProcesses = {
+            sudafrica: {
+                title: "Proceso de Paz en Sudáfrica",
+                description: "La transición negociada del apartheid a la democracia, evitando una guerra civil a gran escala.",
+                timeline: [
+                    { year: "1989", event: "FW de Klerk asume la presidencia e inicia reformas." },
+                    { year: "1990", event: "Liberación de Nelson Mandela después de 27 años." },
+                    { year: "1991", event: "Inician las negociaciones formales (CODESA)." },
+                    { year: "1993", event: "Mandela y de Klerk reciben el Premio Nobel de la Paz." },
+                    { year: "1994", event: "Primeras elecciones multirraciales; Mandela presidente." },
+                    { year: "1995", event: "Se establece la Comisión de la Verdad y la Reconciliación (TRC)." }
+                ],
+                elements: [
+                    "Comisión de la Verdad y Reconciliación (TRC) para investigar violaciones de derechos humanos",
+                    "Amnistía condicional para quienes confesaran crímenes políticos",
+                    "Programas de reparación para víctimas",
+                    "Reforma constitucional y establecimiento de una democracia no racial"
+                ],
+                lights: [
+                    "Evitó una guerra civil y permitió una transición pacífica",
+                    "Modelo de justicia restaurativa innovador a nivel mundial",
+                    "Reconocimiento de las víctimas y espacio para la reconciliación"
+                ],
+                shadows: [
+                    "No se abordaron suficientemente las desigualdades económicas heredadas del apartheid",
+                    "Muchas víctimas consideraron insuficientes las reparaciones",
+                    "Persisten altos niveles de desigualdad y violencia social"
+                ]
+            },
+            irlanda: {
+                title: "Proceso de Paz en Irlanda del Norte",
+                description: "El fin de los 'Troubles', un conflicto etno-nacionalista de 30 años.",
+                timeline: [
+                    { year: "1994", event: "Alto el fuego del IRA y grupos lealistas." },
+                    { year: "1996", event: "Inician conversaciones multipartidistas con mediación de George Mitchell." },
+                    { year: "1998", event: "Firma del Acuerdo de Viernes Santo." },
+                    { year: "2005", event: "El IRA anuncia el fin definitivo de su lucha armada." },
+                    { year: "2007", event: "Se forma un gobierno estable entre antiguos enemigos." }
+                ],
+                elements: [
+                    "Acuerdo de Viernes Santo: modelo de poder compartido",
+                    "Desarme de grupos paramilitares",
+                    "Reforma policial y de derechos humanos",
+                    "Mecanismos de cooperación Norte-Sur y Este-Oeste"
+                ],
+                lights: [
+                    "Puso fin a décadas de violencia sectaria",
+                    "Modelo innovador de gobierno de poder compartido",
+                    "Participación internacional (EE.UU., UE) como garantes"
+                ],
+                shadows: [
+                    "Fragilidad del acuerdo ante coyunturas como el Brexit",
+                    "Persisten la segregación residencial y tensiones comunitarias",
+                    "Lenta implementación de algunos aspectos del acuerdo"
+                ]
+            },
+            guatemala: {
+                title: "Proceso de Paz en Guatemala",
+                description: "La negociación para poner fin a 36 años de una brutal guerra civil y genocidio.",
+                timeline: [
+                    { year: "1987", event: "Acuerdos de Esquipulas II para la paz en Centroamérica." },
+                    { year: "1991", event: "Inician negociaciones directas entre el Gobierno y la guerrilla (URNG)." },
+                    { year: "1995", event: "La Iglesia Católica inicia el proyecto de memoria REMHI." },
+                    { year: "1996", event: "Firma del Acuerdo de Paz Firme y Duradera." },
+                    { year: "1999", event: "La Comisión para el Esclarecimiento Histórico (CEH) concluye que hubo genocidio." }
+                ],
+                elements: [
+                    "Acuerdos sobre derechos indígenas y identidad cultural",
+                    "Compromisos de reforma fiscal y agraria",
+                    "Medidas de desmilitarización y fortalecimiento del poder civil",
+                    "Comisión de Esclarecimiento Histórico y programas de reparación"
+                ],
+                lights: [
+                    "Puso fin a un conflicto prolongado y brutal",
+                    "Reconocimiento del carácter multiétnico y pluricultural del país",
+                    "Avances en la desmilitarización de la sociedad"
+                ],
+                shadows: [
+                    "Implementación limitada de los acuerdos socioeconómicos",
+                    "Persisten altos niveles de pobreza y desigualdad",
+                    "Continuación de la violencia criminal y debilidad institucional"
                 ]
             }
         };
@@ -1154,6 +1391,90 @@
             }, 300);
         }
 
+        // Modal para procesos de paz detallados
+        function openPeaceProcessModal(countryKey) {
+            const data = peaceProcesses[countryKey];
+            if (!data) return;
+
+            const modal = document.getElementById('peace-process-modal-container');
+            const title = document.getElementById('peace-process-modal-title');
+            const context = document.getElementById('peace-process-modal-context');
+            const body = document.getElementById('peace-process-modal-content-body');
+
+            title.innerHTML = data.title;
+            context.innerHTML = data.description;
+            
+            let contentHTML = `
+                <h4 class="text-xl font-bold mt-6 mb-4 text-accent-orange">Línea de Tiempo</h4>
+                <div class="timeline-modal">
+            `;
+            
+            data.timeline.forEach(item => {
+                contentHTML += `
+                    <div class="timeline-item">
+                        <p><strong>${item.year}:</strong> ${item.event}</p>
+                    </div>
+                `;
+            });
+            
+            contentHTML += `
+                </div>
+                
+                <h4 class="text-xl font-bold mt-6 mb-4 text-accent-orange">Elementos Principales del Proceso</h4>
+                <ul class="list-disc pl-5 mb-4">
+            `;
+            
+            data.elements.forEach(element => {
+                contentHTML += `<li class="mb-2">${element}</li>`;
+            });
+            
+            contentHTML += `
+                </ul>
+                
+                <div class="lights-shadows">
+                    <div class="lights">
+                        <h4><i class="fas fa-lightbulb"></i> Luces</h4>
+                        <ul class="list-disc pl-5">
+            `;
+            
+            data.lights.forEach(light => {
+                contentHTML += `<li class="mb-2">${light}</li>`;
+            });
+            
+            contentHTML += `
+                        </ul>
+                    </div>
+                    <div class="shadows">
+                        <h4><i class="fas fa-cloud"></i> Sombras</h4>
+                        <ul class="list-disc pl-5">
+            `;
+            
+            data.shadows.forEach(shadow => {
+                contentHTML += `<li class="mb-2">${shadow}</li>`;
+            });
+            
+            contentHTML += `
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            body.innerHTML = contentHTML;
+            modal.classList.remove('hidden');
+            
+            setTimeout(() => {
+                modal.classList.add('active', 'opacity-100');
+            }, 10);
+        }
+
+        function closePeaceProcessModal() {
+            const modal = document.getElementById('peace-process-modal-container');
+            modal.classList.remove('active', 'opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
         // Funcionalidades adicionales
         function toggleOverview() {
             // Ir a la slide de agenda
@@ -1167,6 +1488,25 @@
             showSlide(currentSlide);
         }
 
+        // Burbuja flotante
+        const floatingBubble = document.getElementById('floating-bubble');
+        const bubbleContent = document.getElementById('bubble-content');
+
+        floatingBubble.addEventListener('click', (e) => {
+            e.stopPropagation();
+            bubbleContent.classList.toggle('active');
+        });
+
+        // Cerrar la burbuja al hacer clic fuera
+        document.addEventListener('click', () => {
+            bubbleContent.classList.remove('active');
+        });
+
+        // Prevenir que el clic en la burbuja se propague
+        bubbleContent.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
         // Event listeners
         document.getElementById('next-btn').addEventListener('click', nextSlide);
         document.getElementById('prev-btn').addEventListener('click', prevSlide);
@@ -1178,6 +1518,8 @@
             else if (e.key === 'Escape') {
                 closeModal();
                 closeRegionModal();
+                closePeaceProcessModal();
+                bubbleContent.classList.remove('active');
             }
         });
 
