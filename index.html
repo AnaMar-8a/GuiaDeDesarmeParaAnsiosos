@@ -1,179 +1,1224 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sesión 1 — Laboratorio de Paz</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .slide { 
-      display: none; 
-      min-height: 100vh; 
-      padding: 4rem; 
-    }
-    .slide.active { display: block; }
-    .animate-on-show {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
-    }
-    .active .animate-on-show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .title-decorator {
-      width: 80px; height: 6px;
-      background: #f59e0b;
-      border-radius: 9999px;
-      margin: 1rem 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultura Política y Procesos de Paz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark-purple: #2c1e3a;
+            --bg-deep-violet: #1e122b;
+            --accent-red-orange: #d95d4a;
+            --accent-orange: #f0903c;
+            --accent-yellow: #f9e24c;
+            --text-color: #FFFFFF; 
+            --text-secondary: #c7c1d3;
+            --dark-text: #111111;
+            --continent-color: #4a3f55;
+        }
+        
+        html {
+            background-color: var(--bg-deep-violet);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep-violet);
+            background: linear-gradient(135deg, var(--bg-deep-violet), var(--bg-dark-purple));
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 ratio */
+            max-height: 100vh;
+            max-width: 177.78vh;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            transform: scale(0.95);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5%;
+            text-align: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .slide.act1-transition { transform: scale(0.95); }
+        .slide.act1-transition.active { transform: scale(1); }
+
+        .slide.act2-transition { transform: translateX(30px); opacity: 0; }
+        .slide.act2-transition.active { transform: translateX(0); opacity: 1; }
+        
+        .slide.act3-transition { transform: scale(1.1); }
+        .slide.act3-transition.active { transform: scale(1); }
+        
+        h1 { font-weight: 900; }
+        h2 { font-weight: 900; }
+        h3 { font-weight: 700; }
+
+        .title-decorator {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red-orange));
+            margin: 1rem auto 2.5rem;
+        }
+
+        .nav-button {
+            position: fixed;
+            bottom: 4%;
+            background-color: var(--text-color);
+            color: var(--dark-text);
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            border: 2px solid var(--text-color);
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-button:hover {
+            background-color: var(--accent-orange);
+            border-color: var(--accent-orange);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(240, 144, 60, 0.4);
+        }
+
+        #prev-btn { left: 4%; }
+        #next-btn { right: 4%; }
+        
+        .modal-container {
+            transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+            backdrop-filter: blur(0px);
+        }
+        .modal-container.active {
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background-color: rgba(44, 30, 58, 0.95);
+            border: 2px solid var(--accent-yellow);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            color: var(--text-color);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(20px);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .modal-container.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .tip-button {
+            background-color: var(--accent-orange);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: none;
+        }
+        .tip-button:hover {
+            transform: scale(1.1) rotate(90deg);
+            background-color: var(--accent-red-orange);
+            box-shadow: 0 0 15px rgba(240, 144, 60, 0.6);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-on-show { visibility: hidden; }
+        .active .animate-on-show {
+            visibility: visible;
+            animation: fadeInUp 0.6s both;
+        }
+        
+        #progress-indicator {
+            position: fixed;
+            bottom: 4.5%;
+            right: 4%;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            background-color: rgba(0,0,0,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            z-index: 90;
+            backdrop-filter: blur(5px);
+        }
+
+        .act-title {
+            font-size: 6rem;
+            font-weight: 900;
+            color: rgba(255,255,255,0.1);
+        }
+
+        .map-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            margin: 2rem auto;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .map-region {
+            position: absolute;
+            border-radius: 8px;
+            background: rgba(74, 63, 85, 0.7);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            font-weight: 500;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .map-region:hover {
+            background: rgba(240, 144, 60, 0.3);
+            border-color: var(--accent-orange);
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .map-region.active {
+            background: rgba(240, 144, 60, 0.5);
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 20px rgba(240, 144, 60, 0.5);
+            z-index: 10;
+        }
+
+        .region-tooltip {
+            position: absolute;
+            background: rgba(44, 30, 58, 0.95);
+            border: 1px solid var(--accent-orange);
+            border-radius: 8px;
+            padding: 1rem;
+            max-width: 300px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .map-region:hover .region-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .victim-quote {
+            border-left: 4px solid var(--accent-orange);
+            padding-left: 1.5rem;
+            margin-top: 1.5rem;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        .typewriter {
+            overflow: hidden; 
+            white-space: nowrap; 
+            margin: 0 auto; 
+            letter-spacing: .05em;
+        }
+        
+        .timeline-modal {
+            position: relative;
+            padding-left: 25px;
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--continent-color);
+            padding-top: 1.5rem;
+        }
+        .timeline-modal::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2.25rem;
+            bottom: 5px;
+            width: 2px;
+            background-color: var(--accent-orange);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--accent-yellow);
+            border: 2px solid var(--accent-orange);
+        }
+        .timeline-item strong {
+            color: var(--accent-yellow);
+        }
+
+        #stepper {
+            position: fixed;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 90;
+        }
+        .step {
+            padding: 0.25rem 1rem;
+            border-radius: 999px;
+            background-color: rgba(0,0,0,0.2);
+            color: var(--text-secondary);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+        .step.active {
+            background-color: var(--accent-yellow);
+            color: var(--dark-text);
+            font-weight: 700;
+        }
+
+        .content-card {
+            background-color: rgba(0,0,0,0.2);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        /* NUEVOS ESTILOS PARA ELEMENTOS INTERACTIVOS */
+        
+        /* Mejoras para popups */
+        .modal-header {
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red-orange));
+            padding: 1.5rem;
+            margin: -2rem -2rem 2rem -2rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.2);
+        }
+
+        /* Nube de palabras mejorada */
+        .word-cloud-container {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .word-cloud-word {
+            position: absolute;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .word-cloud-word:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+
+        /* Lista de autores */
+        .authors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .author-card {
+            background: rgba(0,0,0,0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: var(--accent-yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        .author-work {
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .author-reference {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Botones de navegación adicionales */
+        .nav-extra {
+            position: fixed;
+            top: 4%;
+            right: 4%;
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+        }
+        
+        .nav-extra-button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 1.2rem;
+            backdrop-filter: blur(5px);
+        }
+        
+        .nav-extra-button:hover {
+            background: var(--accent-orange);
+            transform: scale(1.1);
+        }
+
+        /* Efectos de partículas para fondos */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body>
 
-  <!-- Portada -->
-  <div id="slide-1" class="slide active flex flex-col justify-center items-center text-center">
-    <h1 class="text-6xl md:text-8xl font-bold animate-on-show">Sesión 1</h1>
-    <p class="text-2xl mt-6 animate-on-show">Laboratorio de Paz • Escuela Las Juanas</p>
-  </div>
+    <!-- Partículas de fondo -->
+    <div class="particles" id="particles"></div>
 
-  <!-- Introducción -->
-  <div id="slide-2" class="slide flex flex-col justify-center text-center">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Introducción</h2>
-    <div class="title-decorator mx-auto animate-on-show"></div>
-    <p class="text-xl max-w-3xl mx-auto mt-6 leading-relaxed animate-on-show">
-      Esta sesión busca abrir el debate sobre memoria, justicia y paz,
-      entendidos como <span class="text-yellow-600 font-semibold">campos de disputa</span>.
-      El fin último es la construcción de un <strong>Laboratorio de Paz</strong>.
-    </p>
-  </div>
+    <div class="presentation-container">
+        
+        <div id="slide-1" class="slide active">
+            <h1 class="text-7xl md:text-9xl tracking-tighter animate-on-show bg-clip-text text-transparent bg-gradient-to-r from-accent-yellow via-accent-orange to-accent-red-orange">Cultura Política</h1>
+            <h3 class="text-3xl mt-6 font-semibold animate-on-show" style="animation-delay: 0.2s;">Pedagogía de los Derechos Humanos: Procesos y Laboratorios de paz</h3>
+            <p class="text-xl text-secondary mt-12 animate-on-show" style="animation-delay: 0.4s;">Gihomara Aristizábal Morales</p>
+        </div>
 
-  <!-- ACTO I -->
-  <div id="slide-3b" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">🎬 Acto I</h2>
-    <div class="title-decorator !mx-0 animate-on-show"></div>
-    <p class="text-xl max-w-5xl font-medium leading-relaxed mt-6 animate-on-show">
-      El pasado como <strong class="text-yellow-600">campo de disputa</strong>. 
-      La memoria no es neutra, es conflicto y resistencia.
-    </p>
-  </div>
+        <div id="slide-2" class="slide">
+            <h2 class="text-6xl mb-16 animate-on-show">Agenda</h2>
+            <div class="content-card">
+                <ul class="space-y-6 text-2xl text-left font-semibold">
+                    <li class="animate-on-show" style="animation-delay: 0.2s;"><span class="text-accent-orange mr-4">&#10142;</span> Acto I: El pasado como campo de disputa</li>
+                    <li class="animate-on-show" style="animation-delay: 0.4s;"><span class="text-accent-orange mr-4">&#10142;</span> Acto II: Evidencia Internacional</li>
+                    <li class="animate-on-show" style="animation-delay: 0.6s;"><span class="text-accent-orange mr-4">&#10142;</span> Acto III: El futuro como laboratorio</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- ACTO I - EL PASADO COMO CAMPO DE DISPUTA -->
+        <div id="slide-3" class="slide">
+            <h2 class="act-title animate-on-show">Acto I</h2>
+            <h3 class="text-5xl font-bold animate-on-show" style="animation-delay: 0.2s;">El pasado como campo de disputa</h3>
+        </div>
 
-  <div id="slide-3c" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Memoria Social</h2>
-    <div class="title-decorator !mx-0 animate-on-show"></div>
-    <p class="text-xl max-w-5xl leading-relaxed animate-on-show">
-      Según <strong>Elizabeth Jelin</strong>, la memoria es 
-      <span class="text-orange-600">selectiva y disputada</span>. 
-      Diferentes actores pugnan por imponer sus relatos del pasado. 
-      Recordar es un acto político.
-    </p>
-  </div>
+        <div id="slide-4" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Conflicto</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                    Una relación social donde dos o más actores perciben que sus objetivos son incompatibles. Es inherente a la vida social y puede ser un motor de cambio.
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('Conflicto vs. Violencia', 'El conflicto es la tensión entre intereses. La violencia es una de las *formas* de gestionarlo, usualmente la más destructiva. La construcción de paz busca gestionar el conflicto sin recurrir a la violencia.')">+</button>
+            </div>
+        </div>
 
-  <div id="slide-3d" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Historia como Interrupción</h2>
-    <p class="text-xl max-w-5xl mt-6 animate-on-show">
-      <strong>Walter Benjamin</strong>: la historia no es continuidad lineal, 
-      sino <span class="text-yellow-600">interrupción</span>. 
-      Recordar es resistir al olvido impuesto por los vencedores.
-    </p>
-  </div>
+        <div id="slide-5" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Violencias</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                   Las múltiples formas de ejercer coerción y daño. Johan Galtung las clasifica en: <br/><strong class="text-accent-orange">Directa</strong> (física), <strong class="text-accent-orange">Estructural</strong> (injusticia social) y <strong class="text-accent-orange">Cultural</strong> (ideas que la justifican).
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('Ejemplos Cotidianos', '<strong>Directa:</strong> una agresión física.<br><strong>Estructural:</strong> un sistema educativo que excluye a comunidades rurales.<br><strong>Cultural:</strong> un discurso que estigmatiza a los excombatientes.')">+</button>
+            </div>
+        </div>
+        
+        <!-- NUEVA DIAPOSITIVA DE MEMORIA SOCIAL -->
+        <div id="slide-6" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Memoria Social</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                   La memoria no es un archivo neutro del pasado. Según Elizabeth Jelin, es un <strong class="text-accent-yellow">proceso social y político en constante disputa</strong>, donde diferentes actores luchan por imponer su narrativa sobre lo que debe ser recordado u olvidado.
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('La Historia como Interrupción', 'Walter Benjamin argumentaba que la historia oficial es la de los vencedores. Recordar las historias de los vencidos no es un acto de nostalgia, sino una forma de <strong class=text-accent-orange>interrumpir esa continuidad y resistir en el presente</strong>.')">+</button>
+            </div>
+        </div>
 
-  <div id="slide-3e" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Justicia Transicional</h2>
-    <p class="text-xl max-w-5xl mt-6 animate-on-show">
-      Para <strong>Teitel</strong> y <strong>Hayner</strong>, se debate entre 
-      <span class="text-orange-600">verdad, reparación y olvido</span>. 
-      No es solo tribunales, sino un proceso social de reconstrucción.
-    </p>
-  </div>
+        <!-- NUEVA DIAPOSITIVA: HISTORIA COMO INTERRUPCIÓN -->
+        <div id="slide-7" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Historia como Interrupción</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                    Walter Benjamin propone una concepción de la historia que <strong class="text-accent-yellow">interrumpe la narrativa lineal del progreso</strong> dominante. La memoria de los vencidos irrumpe en el presente para cuestionar la historia oficial y abrir posibilidades de cambio.
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('Tesis sobre la Historia', 'Benjamin en sus "Tesis sobre el concepto de historia" critica la idea de progreso continuo. Para él, cada época debe arrancar su tradición al conformismo que está a punto de subyugarla.')">+</button>
+            </div>
+        </div>
 
-  <div id="slide-3f" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Memoria Feminista y Antirracista</h2>
-    <p class="text-xl max-w-5xl mt-6 animate-on-show">
-      <strong>Catherine Walsh</strong> propone pensar la memoria desde 
-      <span class="text-yellow-600">el cuerpo y el territorio</span>. 
-      Una memoria situada, feminista y antirracista.
-    </p>
-  </div>
+        <div id="slide-8" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Justicia Transicional</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                   Conjunto de mecanismos para enfrentar violaciones masivas de DDHH, buscando un equilibrio entre la paz, la verdad y la justicia para garantizar la no repetición. Autores como <strong class="text-accent-yellow">Teitel y Hayner</strong> han desarrollado marcos teóricos fundamentales.
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('Justicia Retributiva vs. Restaurativa', '<strong>Retributiva:</strong> se enfoca en el castigo al culpable (cárcel).<br><strong>Restaurativa:</strong> se enfoca en la reparación del daño a la víctima y la reconstrucción del tejido social. La justicia transicional (Teitel, Hayner) suele combinar elementos de ambas.')">+</button>
+            </div>
+        </div>
 
-  <!-- ACTO II (placeholder para mantener estructura) -->
-  <div id="slide-10" class="slide flex flex-col justify-center text-center">
-    <h2 class="text-5xl md:text-7xl animate-on-show">🎬 Acto II</h2>
-    <p class="text-xl mt-6 animate-on-show">Los retos del presente.</p>
-  </div>
+        <!-- NUEVA DIAPOSITIVA: MEMORIA FEMINISTA Y ANTIRRACISTA -->
+        <div id="slide-9" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Memoria Feminista y Antirracista</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                    Catherine Walsh y Julieta Paredes destacan la importancia de <strong class="text-accent-yellow">visibilizar las memorias silenciadas</strong> de mujeres y comunidades racializadas. La memoria feminista y antirracista cuestiona las narrativas hegemónicas y construye contra-narrativas desde los márgenes.
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('Feminismo Comunitario', 'Julieta Paredes en "Hilando fino: desde el feminismo comunitario" propone una memoria que se teje desde la comunidad, reconociendo los saberes ancestrales y las luchas colectivas.')">+</button>
+            </div>
+        </div>
 
-  <!-- ACTO III -->
-  <div id="slide-15b" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">🎬 Acto III</h2>
-    <p class="text-xl max-w-5xl mt-6 animate-on-show">
-      El futuro como <strong class="text-yellow-600">laboratorio</strong>. 
-      Espacio de experimentación y disputa sobre la paz y la justicia.
-    </p>
-  </div>
+        <!-- ACTO II - EVIDENCIA INTERNACIONAL -->
+        <div id="slide-10" class="slide">
+            <h2 class="act-title animate-on-show">Acto II</h2>
+            <h3 class="text-5xl font-bold animate-on-show" style="animation-delay: 0.2s;">La Evidencia Internacional</h3>
+        </div>
 
-  <div id="slide-15c" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Paz Imperfecta</h2>
-    <p class="text-xl max-w-5xl mt-6 animate-on-show">
-      <strong>Vicent Martínez Guzmán</strong>: 
-      la paz no es meta final, sino <span class="text-orange-600">proceso inacabado</span>. 
-      Siempre parcial, siempre en construcción.
-    </p>
-  </div>
+        <div id="slide-11" class="slide">
+            <h2 class="text-4xl animate-on-show">Mapa de Casos Internacionales</h2>
+            <p class="text-lg text-secondary mb-8 animate-on-show" style="animation-delay: 0.2s;">Explora los procesos de paz en diferentes regiones del mundo</p>
+            
+            <div class="map-container animate-on-show" style="animation-delay: 0.3s;">
+                <div class="map-region" style="top: 10%; left: 15%; width: 30%; height: 25%;" data-region="europa">
+                    Europa
+                    <div class="region-tooltip">
+                        <strong>Procesos destacados:</strong> Acuerdos de Viernes Santo (Irlanda del Norte), Acuerdos de Dayton (Balcanes)
+                    </div>
+                </div>
+                <div class="map-region" style="top: 40%; left: 45%; width: 25%; height: 35%;" data-region="africa">
+                    África
+                    <div class="region-tooltip">
+                        <strong>Procesos destacados:</strong> Sudáfrica (fin del apartheid), Mozambique, Sierra Leona
+                    </div>
+                </div>
+                <div class="map-region" style="top: 25%; left: 20%; width: 20%; height: 30%;" data-region="america">
+                    América Latina
+                    <div class="region-tooltip">
+                        <strong>Procesos destacados:</strong> Guatemala, El Salvador, Colombia
+                    </div>
+                </div>
+                <div class="map-region" style="top: 30%; left: 70%; width: 25%; height: 30%;" data-region="asia">
+                    Asia-Pacífico
+                    <div class="region-tooltip">
+                        <strong>Procesos destacados:</strong> Camboya, Timor Oriental, Filipinas
+                    </div>
+                </div>
+                <div class="map-region" style="top: 15%; left: 55%; width: 30%; height: 25%;" data-region="medio-oriente">
+                    Medio Oriente
+                    <div class="region-tooltip">
+                        <strong>Procesos destacados:</strong> Acuerdos de Oslo, Acuerdos de Camp David
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 animate-on-show" style="animation-delay: 0.5s;">
+                <button class="bg-accent-orange text-white px-6 py-3 rounded-lg font-semibold mr-4" onclick="openRegionModal('europa')">Europa</button>
+                <button class="bg-accent-orange text-white px-6 py-3 rounded-lg font-semibold mr-4" onclick="openRegionModal('africa')">África</button>
+                <button class="bg-accent-orange text-white px-6 py-3 rounded-lg font-semibold mr-4" onclick="openRegionModal('america')">América</button>
+                <button class="bg-accent-orange text-white px-6 py-3 rounded-lg font-semibold mr-4" onclick="openRegionModal('asia')">Asia-Pacífico</button>
+                <button class="bg-accent-orange text-white px-6 py-3 rounded-lg font-semibold" onclick="openRegionModal('medio-oriente')">Medio Oriente</button>
+            </div>
+        </div>
 
-  <div id="slide-15d" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Pedagogías Críticas de Paz</h2>
-    <p class="text-xl max-w-5xl mt-6 animate-on-show">
-      Desde <strong>Paulo Freire</strong> y <strong>Catherine Walsh</strong>: 
-      pedagogías que parten del diálogo, la conciencia crítica y 
-      la <span class="text-yellow-600">transformación social</span>.
-    </p>
-  </div>
+        <div id="slide-12" class="slide text-left">
+            <div class="content-card w-full max-w-5xl">
+                <h2 class="text-4xl animate-on-show">Caso: Sudáfrica</h2>
+                <p class="text-lg mt-4 max-w-5xl leading-relaxed mb-6 animate-on-show" style="animation-delay: 0.2s;">
+                    Pionera en <strong class="text-accent-yellow">justicia restaurativa</strong> (TRC), pero no logró transformar la <strong class="text-accent-orange">estructura económica del apartheid</strong>.
+                </p>
+                <blockquote class="victim-quote animate-on-show" style="animation-delay: 0.4s;">
+                    <p class="typewriter"></p>
+                </blockquote>
+                <button class="tip-button absolute bottom-8 right-8" onclick="openModal('Memoria desde el Cuerpo', 'Catherine Walsh nos invita a preguntar: ¿Qué memorias guardan los cuerpos de las mujeres negras que no fueron contadas en la TRC? La memoria antirracista y feminista desafía las narrativas oficiales.')">+</button>
+            </div>
+        </div>
 
-  <div id="slide-15e" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Investigación-Acción</h2>
-    <p class="text-xl max-w-5xl mt-6 animate-on-show">
-      Inspirada en <strong>Orlando Fals Borda</strong>: 
-      un método de <span class="text-orange-600">construcción colectiva de saberes</span>, 
-      donde investigar es también transformar.
-    </p>
-  </div>
+        <div id="slide-13" class="slide text-left">
+            <div class="content-card w-full max-w-5xl">
+                <h2 class="text-4xl animate-on-show">Caso: Irlanda del Norte</h2>
+                <p class="text-lg mt-4 max-w-5xl leading-relaxed mb-6 animate-on-show" style="animation-delay: 0.2s;">
+                    Ejemplo de <strong class="text-accent-yellow">ingeniería institucional</strong> (Acuerdo de Viernes Santo). La tensión por el <strong class="text-accent-orange">Brexit</strong> demuestra la fragilidad de los acuerdos ante coyunturas externas.
+                </p>
+                <blockquote class="victim-quote animate-on-show" style="animation-delay: 0.4s;">
+                    <p class="typewriter"></p>
+                </blockquote>
+                 <button class="tip-button absolute bottom-8 right-8" onclick="openModal('Memoria en el Territorio', 'Los murales de Belfast y los muros de paz son inscripciones territoriales de la memoria en disputa. El territorio mismo es un actor que recuerda y divide.')">+</button>
+            </div>
+        </div>
+        
+        <div id="slide-14" class="slide text-left">
+            <div class="content-card w-full max-w-5xl">
+                <h2 class="text-4xl animate-on-show">Caso: Guatemala</h2>
+                <p class="text-lg mt-4 max-w-5xl leading-relaxed mb-6 animate-on-show" style="animation-delay: 0.2s;">
+                   La paz no terminó la violencia. El <strong class="text-accent-yellow">racismo estructural</strong> contra el pueblo maya sigue siendo un reto. La <strong class="text-accent-orange">memoria histórica</strong> desde la sociedad civil ha sido crucial.
+                </p>
+                <blockquote class="victim-quote animate-on-show" style="animation-delay: 0.4s;">
+                    <p class="typewriter"></p>
+                </blockquote>
+                <button class="tip-button absolute bottom-8 right-8" onclick="openModal('Memoria, Cuerpo y Territorio', 'El genocidio maya fue una guerra contra los cuerpos y territorios indígenas. La memoria feminista y antirracista aquí es clave para entender la violencia sexual como arma de guerra y la lucha por la tierra como una lucha por la vida misma.')">+</button>
+            </div>
+        </div>
 
-  <div id="slide-15f" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Ecologías de Saberes</h2>
-    <p class="text-xl max-w-5xl mt-6 animate-on-show">
-      <strong>Boaventura de Sousa Santos</strong>: 
-      articular saberes académicos, comunitarios y políticos. 
-      No hay conocimiento único: hay <span class="text-yellow-600">diálogo de saberes</span>.
-    </p>
-  </div>
+        <!-- ACTO III - EL FUTURO COMO LABORATORIO -->
+        <div id="slide-15" class="slide">
+            <h2 class="act-title animate-on-show">Acto III</h2>
+            <h3 class="text-5xl font-bold animate-on-show" style="animation-delay: 0.2s;">El futuro como laboratorio</h3>
+        </div>
 
-  <div id="slide-15g" class="slide text-left">
-    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Laboratorio de Paz</h2>
-    <p class="text-xl max-w-5xl mt-6 animate-on-show">
-      Como <strong>metodología</strong>: espacio de experimentación e investigación-acción. <br/>
-      Como <strong>política</strong>: disputa de sentidos sobre memoria, justicia y paz. 
-    </p>
-    <p class="text-lg text-gray-700 mt-6 animate-on-show">
-      Dinámica inicial: <span class="text-orange-600">nube de palabras</span> 
-      como ejercicio de construcción colectiva.
-    </p>
-  </div>
+        <div id="slide-16" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Laboratorio de Paz: Metodología y Política</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed animate-on-show" style="animation-delay: 0.2s;">
+                   Entendemos el Laboratorio como una <strong class="text-accent-yellow">metodología</strong> (un espacio para la experimentación y la investigación-acción) y como una <strong class="text-accent-orange">política</strong> (un lugar de disputa por los sentidos de la paz, la justicia y la memoria).
+                </p>
+            </div>
+        </div>
 
-  <!-- Navegación -->
-  <script>
-    const slides = document.querySelectorAll('.slide');
-    let current = 0;
+        <!-- NUEVA DIAPOSITIVA: PAZ IMPERFECTA -->
+        <div id="slide-17" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Paz Imperfecta</h2>
+                 <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                   Vicent Martínez Guzmán propone la <strong class="text-accent-yellow">paz imperfecta</strong> como reconocimiento de que la paz no es una meta final, sino un proceso en constante construcción, lleno de contradicciones y logros parciales. No buscamos un ideal, sino potenciar las paces existentes.
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('Filosofía para hacer las paces', 'Martínez Guzmán en "Filosofía para hacer las paces" argumenta que debemos pasar de una cultura de guerra a una cultura de paz, reconociendo que la paz es siempre imperfecta y en construcción.')">+</button>
+            </div>
+        </div>
 
-    function showSlide(n) {
-      slides[current].classList.remove('active');
-      current = (n + slides.length) % slides.length;
-      slides[current].classList.add('active');
-    }
+        <!-- NUEVA DIAPOSITIVA: PEDAGOGÍAS CRÍTICAS DE PAZ -->
+        <div id="slide-18" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Pedagogías Críticas de Paz</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                  Inspirados en Paulo Freire y Catherine Walsh, entendemos que la educación para la paz no es transmitir información, sino <strong class="text-accent-yellow">crear espacios de diálogo crítico</strong> para que las propias comunidades nombren sus violencias y construyan sus paces desde sus realidades específicas.
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('Pedagogía del Oprimido', 'Paulo Freire propone una educación liberadora donde educador y educando aprenden juntos a través del diálogo, cuestionando las estructuras opresivas.')">+</button>
+            </div>
+        </div>
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') showSlide(current + 1);
-      if (e.key === 'ArrowLeft') showSlide(current - 1);
-    });
-  </script>
+        <!-- NUEVA DIAPOSITIVA: INVESTIGACIÓN-ACCIÓN PARTICIPATIVA -->
+        <div id="slide-19" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Investigación-Acción Participativa</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                  Siguiendo a Orlando Fals Borda, rompemos la barrera entre "investigador" y "sujeto investigado". El conocimiento se <strong class="text-accent-yellow">co-produce con las comunidades</strong>, y la investigación sirve directamente para la transformación de su realidad. Es una metodología que combina la investigación científica con la acción transformadora.
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('Investigación Acción Participativa', 'Fals Borda desarrolló esta metodología en Colombia, combinando el conocimiento académico con el saber popular para transformar realidades sociales injustas.')">+</button>
+            </div>
+        </div>
+
+        <!-- NUEVA DIAPOSITIVA: ECOLOGÍAS DE SABERES -->
+        <div id="slide-20" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Ecología de Saberes</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-lg max-w-4xl leading-relaxed mb-10 animate-on-show" style="animation-delay: 0.2s;">
+                  Propuesto por Boaventura de Sousa Santos, este concepto nos llama a <strong class="text-accent-yellow">juntar y poner en diálogo</strong> diversos tipos de conocimiento: el saber académico, el saber comunitario, el saber ancestral, el saber activista. Ninguno es superior a otro, y juntos pueden construir soluciones más complejas y pertinentes.
+                </p>
+                <button class="tip-button animate-on-show" style="animation-delay: 0.4s;"
+                        onclick="openModal('Descolonizar el saber', 'Boaventura de Sousa Santos critica el monopolio del conocimiento científico occidental y aboga por una ecología de saberes que reconozca la validez de otros conocimientos.')">+</button>
+            </div>
+        </div>
+
+        <!-- EJERCICIO INTERACTIVO: NUBE DE PALABRAS -->
+        <div id="slide-21" class="slide">
+            <div class="content-card">
+                <h2 class="text-4xl animate-on-show">Ejercicio: Nube de Palabras</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                <p class="text-xl max-w-4xl leading-relaxed animate-on-show" style="animation-delay: 0.2s;">
+                    Como ejercicio de nuestro laboratorio, si tuvieras que definir con <strong class="text-accent-yellow">una sola palabra</strong> lo que significa "paz" para ti y tu comunidad, ¿cuál sería?
+                </p>
+                <div class="word-cloud-container" id="word-cloud">
+                    <!-- Palabras se generarán dinámicamente -->
+                </div>
+                <div class="mt-6 animate-on-show" style="animation-delay: 0.4s;">
+                    <input type="text" id="word-input" placeholder="Escribe tu palabra aquí" class="px-4 py-2 rounded-lg text-dark-text">
+                    <button id="add-word-btn" class="bg-accent-orange text-white px-4 py-2 rounded-lg ml-2">Agregar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTA DE AUTORES Y REFERENCIAS -->
+        <div id="slide-22" class="slide text-left">
+            <div class="content-card w-full max-w-6xl">
+                <h2 class="text-4xl animate-on-show">Referencias Bibliográficas</h2>
+                <div class="title-decorator animate-on-show" style="animation-delay: 0.1s;"></div>
+                
+                <div class="authors-grid animate-on-show" style="animation-delay: 0.2s;">
+                    <div class="author-card">
+                        <div class="author-name">Elizabeth Jelin</div>
+                        <div class="author-work">Los trabajos de la memoria</div>
+                        <div class="author-reference">Siglo XXI Editores, 2002. ISBN: 84-323-1093-X</div>
+                    </div>
+                    
+                    <div class="author-card">
+                        <div class="author-name">Julieta Paredes</div>
+                        <div class="author-work">Hilando fino: desde el feminismo comunitario</div>
+                        <div class="author-reference">Comunidad Mujeres Creando Comunidad, 2010</div>
+                    </div>
+                    
+                    <div class="author-card">
+                        <div class="author-name">Walter Benjamin</div>
+                        <div class="author-work">Tesis sobre el concepto de historia</div>
+                        <div class="author-reference">Obra póstuma, publicada en 1942</div>
+                    </div>
+                    
+                    <div class="author-card">
+                        <div class="author-name">Ruti G. Teitel</div>
+                        <div class="author-work">Transitional Justice</div>
+                        <div class="author-reference">Oxford University Press, 2000</div>
+                    </div>
+                    
+                    <div class="author-card">
+                        <div class="author-name">Priscilla B. Hayner</div>
+                        <div class="author-work">Unspeakable Truths: Transitional Justice and the Challenge of Truth Commissions</div>
+                        <div class="author-reference">Routledge, 2010</div>
+                    </div>
+                    
+                    <div class="author-card">
+                        <div class="author-name">Catherine Walsh</div>
+                        <div class="author-work">Pedagogías decoloniales: prácticas insurgentes de resistir, (re)existir y (re)vivir</div>
+                        <div class="author-reference">Abya Yala, 2013</div>
+                    </div>
+                    
+                    <div class="author-card">
+                        <div class="author-name">Vicent Martínez Guzmán</div>
+                        <div class="author-work">Filosofía para hacer las paces</div>
+                        <div class="author-reference">Icaria Editorial, 2001</div>
+                    </div>
+                    
+                    <div class="author-card">
+                        <div class="author-name">Paulo Freire</div>
+                        <div class="author-work">Pedagogía del oprimido</div>
+                        <div class="author-reference">Siglo XXI Editores, 1970</div>
+                    </div>
+                    
+                    <div class="author-card">
+                        <div class="author-name">Orlando Fals Borda</div>
+                        <div class="author-work">Ciencia propia y colonialismo intelectual</div>
+                        <div class="author-reference">Carlos Valencia Editores, 1987</div>
+                    </div>
+                    
+                    <div class="author-card">
+                        <div class="author-name">Boaventura de Sousa Santos</div>
+                        <div class="author-work">Una epistemología del Sur: la reinvención del conocimiento y la emancipación social</div>
+                        <div class="author-reference">CLACSO, 2009</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-23" class="slide">
+             <h2 class="text-7xl md:text-9xl tracking-tighter animate-on-show bg-clip-text text-transparent bg-gradient-to-r from-accent-yellow via-accent-orange to-accent-red-orange">Gracias</h2>
+             <p class="text-xl mt-8 text-secondary animate-on-show" style="animation-delay: 0.3s;">Gihomara Aristizábal Morales</p>
+        </div>
+
+    </div>
+
+    <!-- Indicadores de progreso -->
+    <div id="progress-indicator"></div>
+    <div id="stepper">
+        <div id="step-1" class="step">Acto I</div>
+        <div id="step-2" class="step">Acto II</div>
+        <div id="step-3" class="step">Acto III</div>
+    </div>
+
+    <!-- Botones de navegación adicionales -->
+    <div class="nav-extra">
+        <div class="nav-extra-button" onclick="toggleOverview()" title="Vista general">
+            <i class="fas fa-th"></i>
+        </div>
+        <div class="nav-extra-button" onclick="toggleReferences()" title="Referencias">
+            <i class="fas fa-book"></i>
+        </div>
+    </div>
+
+    <!-- Modal para regiones del mapa -->
+    <div id="region-modal-container" class="modal-container fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 hidden opacity-0">
+        <div id="region-modal-content" class="modal-content p-8 max-w-3xl w-full relative rounded-lg text-left">
+            <div class="modal-header">
+                <h3 id="region-modal-title" class="text-3xl font-bold mb-2 text-white"></h3>
+            </div>
+            <p id="region-modal-context" class="text-base text-secondary mb-4"></p>
+            <div id="region-modal-timeline" class="max-h-64 overflow-y-auto pr-4"></div>
+            <button onclick="closeRegionModal()" class="modal-close">&times;</button>
+        </div>
+    </div>
+
+    <!-- Modal para conceptos -->
+    <div id="modal-container" class="modal-container fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 hidden opacity-0">
+        <div id="modal-content" class="modal-content p-8 max-w-3xl w-full relative rounded-lg text-left">
+            <div class="modal-header">
+                <h3 id="modal-title" class="text-3xl font-bold mb-2 text-white"></h3>
+            </div>
+            <p id="modal-context" class="text-base text-secondary mb-4"></p>
+            <div id="modal-timeline" class="max-h-64 overflow-y-auto pr-4"></div>
+            <button onclick="closeModal()" class="modal-close">&times;</button>
+        </div>
+    </div>
+    
+    <!-- Botones de navegación principales -->
+    <button id="prev-btn" class="nav-button">&#10094;</button>
+    <button id="next-btn" class="nav-button">&#10095;</button>
+
+    <script>
+        let currentSlide = 1;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressIndicator = document.getElementById('progress-indicator');
+        const presentationContainer = document.querySelector('.presentation-container');
+
+        const actBoundaries = { 1: 9, 2: 14, 3: 23 };
+
+        // Datos para el mapa interactivo
+        const regionData = {
+            europa: {
+                title: "Procesos de Paz en Europa",
+                context: "Europa ha sido escenario de importantes procesos de paz, especialmente tras los conflictos en los Balcanes e Irlanda del Norte.",
+                processes: [
+                    "Acuerdos de Viernes Santo (Irlanda del Norte, 1998)",
+                    "Acuerdos de Dayton (Bosnia-Herzegovina, 1995)",
+                    "Proceso de paz en los Balcanes (años 90)",
+                    "Acuerdos de Helsinki y procesos de distensión durante la Guerra Fría"
+                ]
+            },
+            africa: {
+                title: "Procesos de Paz en África",
+                context: "África ha experimentado múltiples procesos de paz para resolver conflictos post-coloniales y guerras civiles.",
+                processes: [
+                    "Sudáfrica: Transición del apartheid (1990-1994)",
+                    "Mozambique: Acuerdo General de Paz (1992)",
+                    "Angola: Acuerdo de Luena (2002)",
+                    "Sierra Leona: Acuerdos de Lomé (1999) y Abuja (2000)",
+                    "Liberia: Acuerdo de Accra (2003)",
+                    "Sudán: Acuerdo Integral de Paz (2005)"
+                ]
+            },
+            america: {
+                title: "Procesos de Paz en América Latina",
+                context: "América Latina ha desarrollado procesos de paz para superar dictaduras y conflictos armados internos.",
+                processes: [
+                    "Colombia: Proceso de La Habana con las FARC (2016)",
+                    "Guatemala: Acuerdos de Paz Firme y Duradera (1996)",
+                    "El Salvador: Acuerdos de Chapultepec (1992)",
+                    "Nicaragua: Proceso de Esquipulas y transición (años 80-90)"
+                ]
+            },
+            asia: {
+                title: "Procesos de Paz en Asia-Pacífico",
+                context: "Asia ha enfrentado procesos de paz tras conflictos coloniales, guerras civiles y procesos de independencia.",
+                processes: [
+                    "Camboya: Acuerdos de París (1991)",
+                    "Timor Oriental: proceso de independencia",
+                    "Filipinas: procesos con grupos (MILF, MNLF)",
+                    "Sri Lanka: intentos de proceso de paz",
+                    "Nepal: Acuerdo Integral de Paz (2006)"
+                ]
+            },
+            "medio-oriente": {
+                title: "Procesos de Paz en Medio Oriente",
+                context: "Medio Oriente ha sido escenario de complejos procesos de paz en el contexto del conflicto árabe-israelí.",
+                processes: [
+                    "Acuerdos de Camp David (Egipto-Israel, 1978)",
+                    "Acuerdos de Oslo (palestino-israelí, 1993)",
+                    "Proceso de Madrid (años 90)",
+                    "Acuerdos de Abraham (2020)"
+                ]
+            }
+        };
+
+        // Inicializar partículas de fondo
+        function initParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 10 + 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = Math.random() * 10 + 15 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Nube de palabras interactiva
+        function setupWordCloud() {
+            const wordCloud = document.getElementById('word-cloud');
+            const wordInput = document.getElementById('word-input');
+            const addButton = document.getElementById('add-word-btn');
+            let words = JSON.parse(localStorage.getItem('peace-words')) || [
+                "Reconciliación", "Diálogo", "Justicia", "Verdad", "Dignidad",
+                "Respeto", "Equidad", "Solidaridad", "Convivencia", "Empatía"
+            ];
+            
+            function renderWordCloud() {
+                wordCloud.innerHTML = '';
+                const centerX = wordCloud.offsetWidth / 2;
+                const centerY = wordCloud.offsetHeight / 2;
+                
+                words.forEach((word, index) => {
+                    const wordElement = document.createElement('div');
+                    wordElement.className = 'word-cloud-word';
+                    wordElement.textContent = word;
+                    
+                    // Colores alternados
+                    if (index % 3 === 0) {
+                        wordElement.style.background = 'rgba(240, 144, 60, 0.7)';
+                    } else if (index % 3 === 1) {
+                        wordElement.style.background = 'rgba(217, 93, 74, 0.7)';
+                    } else {
+                        wordElement.style.background = 'rgba(249, 226, 76, 0.7)';
+                        wordElement.style.color = 'var(--dark-text)';
+                    }
+                    
+                    // Tamaño aleatorio
+                    const size = Math.random() * 20 + 16;
+                    wordElement.style.fontSize = `${size}px`;
+                    
+                    // Posición en espiral
+                    const angle = (index / words.length) * 2 * Math.PI;
+                    const radius = Math.min(centerX, centerY) * 0.8;
+                    const x = centerX + Math.cos(angle) * radius - 50;
+                    const y = centerY + Math.sin(angle) * radius - 20;
+                    
+                    wordElement.style.left = `${x}px`;
+                    wordElement.style.top = `${y}px`;
+                    
+                    wordCloud.appendChild(wordElement);
+                });
+            }
+            
+            addButton.addEventListener('click', () => {
+                const word = wordInput.value.trim();
+                if (word && !words.includes(word)) {
+                    words.push(word);
+                    localStorage.setItem('peace-words', JSON.stringify(words));
+                    wordInput.value = '';
+                    renderWordCloud();
+                }
+            });
+            
+            wordInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    addButton.click();
+                }
+            });
+            
+            renderWordCloud();
+        }
+
+        // Funcionalidad de navegación
+        function getActForSlide(slideNumber) {
+            if (slideNumber <= actBoundaries[1]) return 1;
+            if (slideNumber <= actBoundaries[2]) return 2;
+            return 3;
+        }
+
+        function typeWriter(element, text, speed = 40) {
+            if (!element) return;
+            let i = 0;
+            element.innerHTML = "";
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        function showSlide(slideNumber) {
+            slides.forEach((slide) => {
+                slide.classList.remove('active', 'act1-transition', 'act2-transition', 'act3-transition');
+            });
+
+            const activeSlide = document.getElementById(`slide-${slideNumber}`);
+            if (activeSlide) {
+                const act = getActForSlide(slideNumber);
+                activeSlide.classList.add(`act${act}-transition`);
+                
+                // Forzar reflow para reiniciar la animación
+                void activeSlide.offsetWidth;
+
+                activeSlide.classList.add('active');
+
+                // Efecto de escritura para citas
+                const quoteP = activeSlide.querySelector('.typewriter');
+                if (quoteP) {
+                    const quotes = {
+                        12: "Perdonar no es olvidar; es recordar sin amargura.",
+                        13: "Crecimos sin esperar vivir mucho. El Acuerdo nos dio un futuro que nunca creímos posible.",
+                        14: "Contar nuestra historia es la única manera de que el mundo sepa que existimos y que lo que nos hicieron no se repita."
+                    };
+                    if (quotes[slideNumber]) {
+                        typeWriter(quoteP, quotes[slideNumber]);
+                    }
+                }
+            }
+            updateProgress(slideNumber);
+        }
+        
+        function updateProgress(slideNumber) {
+            if (progressIndicator) {
+                progressIndicator.textContent = `${slideNumber} / ${totalSlides}`;
+            }
+            const act = getActForSlide(slideNumber);
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.toggle('active', index + 1 === act);
+            });
+        }
+
+        function nextSlide() { 
+            if (currentSlide < totalSlides) { 
+                currentSlide++; 
+                showSlide(currentSlide); 
+            } 
+        }
+        
+        function prevSlide() { 
+            if (currentSlide > 1) { 
+                currentSlide--; 
+                showSlide(currentSlide); 
+            } 
+        }
+
+        // Modal para regiones del mapa
+        function openRegionModal(regionKey) {
+            const data = regionData[regionKey];
+            if (!data) return;
+
+            const modal = document.getElementById('region-modal-container');
+            const title = document.getElementById('region-modal-title');
+            const context = document.getElementById('region-modal-context');
+            const timeline = document.getElementById('region-modal-timeline');
+
+            title.innerHTML = data.title;
+            context.innerHTML = data.context;
+            
+            let processesHTML = `<h4 class="text-xl font-bold mt-6 mb-4 text-accent-orange">Procesos destacados</h4><ul class="space-y-2">`;
+            data.processes.forEach(process => {
+                processesHTML += `<li class="flex items-start"><span class="text-accent-yellow mr-2">•</span> ${process}</li>`;
+            });
+            processesHTML += '</ul>';
+            timeline.innerHTML = processesHTML;
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('active', 'opacity-100');
+            }, 10);
+        }
+
+        function closeRegionModal() {
+            const modal = document.getElementById('region-modal-container');
+            modal.classList.remove('active', 'opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Modal para conceptos
+        function openModal(title, body) {
+            const modal = document.getElementById('modal-container');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContext = document.getElementById('modal-context');
+
+            modalTitle.innerHTML = title;
+            modalContext.innerHTML = body;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('active', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal-container');
+            modal.classList.remove('active', 'opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Funcionalidades adicionales
+        function toggleOverview() {
+            // Ir a la slide de agenda
+            currentSlide = 2;
+            showSlide(currentSlide);
+        }
+
+        function toggleReferences() {
+            // Ir a la slide de referencias
+            currentSlide = 22;
+            showSlide(currentSlide);
+        }
+
+        // Event listeners
+        document.getElementById('next-btn').addEventListener('click', nextSlide);
+        document.getElementById('prev-btn').addEventListener('click', prevSlide);
+        
+        // Navegación por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            else if (e.key === 'ArrowLeft') prevSlide();
+            else if (e.key === 'Escape') {
+                closeModal();
+                closeRegionModal();
+            }
+        });
+
+        // Navegación táctil
+        let touchstartX = 0;
+        let touchendX = 0;
+        
+        function handleGesture() {
+            if (touchendX < touchstartX - 50) nextSlide();
+            if (touchendX > touchstartX + 50) prevSlide();
+        }
+        
+        presentationContainer.addEventListener('touchstart', e => { 
+            touchstartX = e.changedTouches[0].screenX; 
+        });
+        
+        presentationContainer.addEventListener('touchend', e => { 
+            touchendX = e.changedTouches[0].screenX; 
+            handleGesture(); 
+        });
+
+        // Navegación por los steps
+        document.getElementById('step-1').addEventListener('click', () => { 
+            currentSlide = 3; 
+            showSlide(currentSlide); 
+        });
+        
+        document.getElementById('step-2').addEventListener('click', () => { 
+            currentSlide = 10; 
+            showSlide(currentSlide); 
+        });
+        
+        document.getElementById('step-3').addEventListener('click', () => { 
+            currentSlide = 15; 
+            showSlide(currentSlide); 
+        });
+
+        // Inicialización
+        showSlide(currentSlide);
+        initParticles();
+        setupWordCloud();
+    </script>
 </body>
 </html>
