@@ -591,6 +591,250 @@
         .shadows h4 {
             color: #F44336;
         }
+
+        /* NUEVOS ESTILOS PARA EL BOTÓN ESPECIAL */
+        .special-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-red-orange));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(217, 93, 74, 0.4);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .special-button.visible {
+            opacity: 1;
+            visibility: visible;
+            animation: bounce 2s infinite;
+        }
+
+        .special-button:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 12px 30px rgba(217, 93, 74, 0.6);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Estilos para el laboratorio interactivo */
+        .lab-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lab-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .lab-tab {
+            padding: 12px 24px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .lab-tab.active {
+            background: var(--accent-orange);
+            color: var(--dark-text);
+            font-weight: 700;
+        }
+
+        .lab-content {
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            min-height: 400px;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .component-card {
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-orange);
+            transition: all 0.3s ease;
+        }
+
+        .component-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .component-card h4 {
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .phase-timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-top: 2rem;
+        }
+
+        .phase-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-orange);
+        }
+
+        .phase-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+
+        .phase-item::before {
+            content: '';
+            position: absolute;
+            left: -23px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-yellow);
+            border: 2px solid var(--accent-orange);
+        }
+
+        .phase-item h4 {
+            color: var(--accent-yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-duration {
+            color: var(--accent-orange);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .approach-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .approach-card {
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 4px solid var(--accent-orange);
+        }
+
+        .approach-card h4 {
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .criteria-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        .criteria-table th {
+            background: rgba(240, 144, 60, 0.2);
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--accent-orange);
+        }
+
+        .criteria-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .criteria-table tr:hover {
+            background: rgba(240, 144, 60, 0.1);
+        }
+
+        .factor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .factor-card {
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .factor-card h4 {
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .factor-card.conditions h4 {
+            color: #4CAF50;
+        }
+
+        .factor-card.risks h4 {
+            color: #F44336;
+        }
+
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .legal-card {
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .legal-card h4 {
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -604,6 +848,10 @@
             <h1 class="text-7xl md:text-9xl tracking-tighter animate-on-show bg-clip-text text-transparent bg-gradient-to-r from-accent-yellow via-accent-orange to-accent-red-orange">Cultura Política</h1>
             <h3 class="text-3xl mt-6 font-semibold animate-on-show" style="animation-delay: 0.2s;">Pedagogía de los Derechos Humanos: Procesos y Laboratorios de paz</h3>
             <p class="text-xl text-secondary mt-12 animate-on-show" style="animation-delay: 0.4s;">Gihomara Aristizábal Morales</p>
+            <!-- Botón especial en la portada -->
+            <button class="special-button visible mt-8 animate-on-show" style="animation-delay: 0.6s;" onclick="openLaboratoryModal()">
+                <i class="fas fa-flask"></i> Explorar Laboratorio de Paz
+            </button>
         </div>
 
         <div id="slide-2" class="slide">
@@ -794,6 +1042,10 @@
         <div id="slide-15" class="slide">
             <h2 class="act-title animate-on-show">Acto III</h2>
             <h3 class="text-5xl font-bold animate-on-show" style="animation-delay: 0.2s;">El futuro como laboratorio</h3>
+            <!-- Botón especial en el Acto III -->
+            <button class="special-button visible mt-8 animate-on-show" style="animation-delay: 0.6s;" onclick="openLaboratoryModal()">
+                <i class="fas fa-flask"></i> Explorar Laboratorio de Paz
+            </button>
         </div>
 
         <div id="slide-16" class="slide">
@@ -949,6 +1201,10 @@
         <div id="slide-23" class="slide">
              <h2 class="text-7xl md:text-9xl tracking-tighter animate-on-show bg-clip-text text-transparent bg-gradient-to-r from-accent-yellow via-accent-orange to-accent-red-orange">Gracias</h2>
              <p class="text-xl mt-8 text-secondary animate-on-show" style="animation-delay: 0.3s;">Gihomara Aristizábal Morales</p>
+             <!-- Botón especial en la última diapositiva -->
+             <button class="special-button visible mt-8 animate-on-show" style="animation-delay: 0.6s;" onclick="openLaboratoryModal()">
+                <i class="fas fa-flask"></i> Explorar Laboratorio de Paz
+            </button>
         </div>
 
     </div>
@@ -967,6 +1223,11 @@
             </a>
         </div>
     </div>
+
+    <!-- Botón especial flotante -->
+    <button class="special-button" id="special-button" onclick="openLaboratoryModal()">
+        <i class="fas fa-flask"></i> Explorar Laboratorio de Paz
+    </button>
 
     <!-- Indicadores de progreso -->
     <div id="progress-indicator"></div>
@@ -1022,159 +1283,313 @@
         </div>
     </div>
 
+    <!-- Modal para el Laboratorio de Paz -->
+    <div id="laboratory-modal-container" class="modal-container fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 hidden opacity-0">
+        <div id="laboratory-modal-content" class="modal-content p-8 max-w-6xl w-full relative rounded-lg text-left max-h-[90vh] overflow-hidden">
+            <button onclick="closeLaboratoryModal()" class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h3 id="laboratory-modal-title" class="text-3xl font-bold mb-2 text-white">Estructura Metodológica de un Laboratorio de Paz</h3>
+            </div>
+            
+            <div class="lab-container">
+                <div class="lab-tabs" id="lab-tabs">
+                    <div class="lab-tab active" data-tab="definicion">Definición</div>
+                    <div class="lab-tab" data-tab="componentes">Componentes</div>
+                    <div class="lab-tab" data-tab="fases">Fases</div>
+                    <div class="lab-tab" data-tab="enfoques">Enfoques</div>
+                    <div class="lab-tab" data-tab="criterios">Criterios</div>
+                    <div class="lab-tab" data-tab="factores">Factores</div>
+                    <div class="lab-tab" data-tab="marco">Marco Normativo</div>
+                </div>
+                
+                <div class="lab-content" id="lab-content">
+                    <!-- Contenido se cargará dinámicamente -->
+                </div>
+                
+                <div class="flex justify-between mt-6">
+                    <button id="lab-prev-btn" class="bg-gray-700 text-white px-4 py-2 rounded-lg">Anterior</button>
+                    <span id="lab-progress" class="text-white">1/7</span>
+                    <button id="lab-next-btn" class="bg-accent-orange text-white px-4 py-2 rounded-lg">Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Botones de navegación principales -->
     <button id="prev-btn" class="nav-button">&#10094;</button>
     <button id="next-btn" class="nav-button">&#10095;</button>
 
     <script>
+        // Variables globales
         let currentSlide = 1;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
         const progressIndicator = document.getElementById('progress-indicator');
         const presentationContainer = document.querySelector('.presentation-container');
+        const specialButton = document.getElementById('special-button');
 
         const actBoundaries = { 1: 9, 2: 14, 3: 23 };
 
-        // Datos para el mapa interactivo
-        const regionData = {
-            europa: {
-                title: "Procesos de Paz en Europa",
-                context: "Europa ha sido escenario de importantes procesos de paz, especialmente tras los conflictos en los Balcanes e Irlanda del Norte.",
-                processes: [
-                    "Acuerdos de Viernes Santo (Irlanda del Norte, 1998)",
-                    "Acuerdos de Dayton (Bosnia-Herzegovina, 1995)",
-                    "Proceso de paz en los Balcanes (años 90)",
-                    "Acuerdos de Helsinki y procesos de distensión durante la Guerra Fría"
-                ]
+        // Datos para el laboratorio de paz
+        const labData = {
+            definicion: {
+                title: "Definición Conceptual",
+                content: `
+                    <h3 class="text-2xl font-bold mb-4 text-accent-yellow">¿Qué es un Laboratorio de Paz?</h3>
+                    <p class="mb-4">Los laboratorios de paz son una estrategia de carácter territorial orientada a la construcción de paz y reconciliación desde los territorios y sus poblaciones a partir del trabajo con población víctima del conflicto armado y de la sociedad en general, para la transformación pacífica de conflictos y la reconstrucción del tejido social.</p>
+                    <div class="bg-accent-orange/10 p-4 rounded-lg border-l-4 border-accent-orange mt-6">
+                        <h4 class="font-bold mb-2">Características principales:</h4>
+                        <ul class="list-disc pl-5">
+                            <li>Enfoque territorial y participativo</li>
+                            <li>Transformación pacífica de conflictos</li>
+                            <li>Reconstrucción del tejido social</li>
+                            <li>Trabajo con población víctima y sociedad en general</li>
+                        </ul>
+                    </div>
+                `
             },
-            africa: {
-                title: "Procesos de Paz en África",
-                context: "África ha experimentado múltiples procesos de paz para resolver conflictos post-coloniales y guerras civiles.",
-                processes: [
-                    "Sudáfrica: Transición del apartheid (1990-1994)",
-                    "Mozambique: Acuerdo General de Paz (1992)",
-                    "Angola: Acuerdo de Luena (2002)",
-                    "Sierra Leona: Acuerdos de Lomé (1999) y Abuja (2000)",
-                    "Liberia: Acuerdo de Accra (2003)",
-                    "Sudán: Acuerdo Integral de Paz (2005)"
-                ]
+            componentes: {
+                title: "Componentes Estructurales Fundamentales",
+                content: `
+                    <h3 class="text-2xl font-bold mb-4 text-accent-yellow">Componentes del Laboratorio de Paz</h3>
+                    <div class="component-grid">
+                        <div class="component-card">
+                            <h4>1. Paz, DDHH y Vida Digna</h4>
+                            <p><strong>Objetivo:</strong> Impulsar en las comunidades beneficiarias el desarrollo de estructuras de cohesión social que les permitieran hacerse partícipes activos en la gestión de los problemas derivados del conflicto y la exclusión social.</p>
+                            <ul class="mt-2 text-sm">
+                                <li>• Construcción de cultura de paz y derechos integrales</li>
+                                <li>• Prevención y atención de violencias</li>
+                                <li>• Fortalecimiento de organizaciones sociales</li>
+                                <li>• Memoria histórica y reparación simbólica</li>
+                                <li>• Reconciliación territorial</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="component-card">
+                            <h4>2. Fortalecimiento Institucional</h4>
+                            <p><strong>Objetivo:</strong> Instaurar la capacidad de las instituciones públicas y privadas de llevar a cabo políticas de ordenamiento territorial y de prestar servicios colectivos.</p>
+                            <ul class="mt-2 text-sm">
+                                <li>• Participación ciudadana y control social</li>
+                                <li>• Descentralización y gobierno local</li>
+                                <li>• Transparencia y rendición de cuentas</li>
+                                <li>• Acceso a la justicia</li>
+                                <li>• Planificación participativa territorial</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="component-card">
+                            <h4>3. Desarrollo Socioeconómico Sostenible</h4>
+                            <p><strong>Objetivo:</strong> La creación de espacios de inclusión económica por medio de estrategias de producción alternativa, los cuales debían responder a problemáticas específicas de la región.</p>
+                            <ul class="mt-2 text-sm">
+                                <li>• Desarrollo rural integral</li>
+                                <li>• Economías alternativas y solidarias</li>
+                                <li>• Empleabilidad y formación técnica</li>
+                                <li>• Microcrédito y emprendimiento</li>
+                                <li>• Sustitución de cultivos ilícitos</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="component-card">
+                            <h4>4. Infraestructuras Sociales</h4>
+                            <p><strong>Objetivo:</strong> Establecer servicios básicos en materia de educación, sanidad, agua y medio ambiente.</p>
+                            <ul class="mt-2 text-sm">
+                                <li>• Acceso a servicios públicos básicos</li>
+                                <li>• Infraestructura educativa y de salud</li>
+                                <li>• Conectividad y comunicaciones</li>
+                                <li>• Gestión ambiental y sostenibilidad</li>
+                                <li>• Equipamiento comunitario</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
             },
-            america: {
-                title: "Procesos de Paz en América Latina",
-                context: "América Latina ha desarrollado procesos de paz para superar dictaduras y conflictos armados internos.",
-                processes: [
-                    "Colombia: Proceso de La Habana con las FARC (2016)",
-                    "Guatemala: Acuerdos de Paz Firme y Duradera (1996)",
-                    "El Salvador: Acuerdos de Chapultepec (1992)",
-                    "Nicaragua: Proceso de Esquipulas y transición (años 80-90)"
-                ]
+            fases: {
+                title: "Fases Metodológicas de Implementación",
+                content: `
+                    <h3 class="text-2xl font-bold mb-4 text-accent-yellow">Fases del Laboratorio de Paz</h3>
+                    <div class="phase-timeline">
+                        <div class="phase-item">
+                            <h4>FASE 1: Diagnóstico y Caracterización Territorial</h4>
+                            <div class="phase-duration">Duración: 3-6 meses</div>
+                            <p><strong>Actividades principales:</strong> Mapeo de actores territoriales, análisis de conflictividades locales, caracterización socioeconómica, identificación de capacidades locales, priorización participativa de necesidades.</p>
+                            <p class="mt-2"><strong>Herramientas:</strong> Talleres comunitarios, cartografía social participativa, grupos focales, entrevistas a profundidad, análisis de fuentes secundarias.</p>
+                        </div>
+                        
+                        <div class="phase-item">
+                            <h4>FASE 2: Diseño Participativo</h4>
+                            <div class="phase-duration">Duración: 2-4 meses</div>
+                            <p><strong>Actividades principales:</strong> Construcción colectiva de visión territorial, formulación participativa de proyectos, definición de alianzas estratégicas, estructuración de mecanismos de participación, elaboración de plan de implementación.</p>
+                            <p class="mt-2"><strong>Herramientas:</strong> Planeación prospectiva participativa, teoría del cambio comunitaria, marco lógico con enfoque diferencial, pactos sociales territoriales, sistemas de monitoreo participativo.</p>
+                        </div>
+                        
+                        <div class="phase-item">
+                            <h4>FASE 3: Implementación y Ejecución</h4>
+                            <div class="phase-duration">Duración: 24-36 meses</div>
+                            <p><strong>Actividades principales:</strong> Ejecución de proyectos por componente, fortalecimiento de capacidades locales, construcción de alianzas multiactor, desarrollo de procesos pedagógicos, seguimiento y ajuste continuo.</p>
+                            <p class="mt-2"><strong>Herramientas:</strong> Gestión adaptativa de proyectos, educación popular para la paz, investigación-acción participativa, comunicación para el cambio social, mediación y transformación de conflictos.</p>
+                        </div>
+                        
+                        <div class="phase-item">
+                            <h4>FASE 4: Consolidación y Sostenibilidad</h4>
+                            <div class="phase-duration">Duración: 12-18 meses</div>
+                            <p><strong>Actividades principales:</strong> Transferencia de capacidades técnicas, institucionalización de procesos, sistematización de experiencias, escalamiento de iniciativas exitosas, evaluación de impacto participativa.</p>
+                            <p class="mt-2"><strong>Herramientas:</strong> Construcción de políticas públicas territoriales, redes de laboratorios de paz, observatorios territoriales de paz, escuelas de liderazgo comunitario, diplomados en construcción de paz.</p>
+                        </div>
+                    </div>
+                `
             },
-            asia: {
-                title: "Procesos de Paz en Asia-Pacífico",
-                context: "Asia ha enfrentado procesos de paz tras conflictos coloniales, guerras civiles y procesos de independencia.",
-                processes: [
-                    "Camboya: Acuerdos de París (1991)",
-                    "Timor Oriental: proceso de independencia",
-                    "Filipinas: procesos con grupos (MILF, MNLF)",
-                    "Sri Lanka: intentos de proceso de paz",
-                    "Nepal: Acuerdo Integral de Paz (2006)"
-                ]
+            enfoques: {
+                title: "Enfoques Metodológicos Transversales",
+                content: `
+                    <h3 class="text-2xl font-bold mb-4 text-accent-yellow">Enfoques Transversales</h3>
+                    <div class="approach-cards">
+                        <div class="approach-card">
+                            <h4>Enfoque Diferencial</h4>
+                            <p><strong>Perspectiva de género:</strong> Liderazgo de mujeres en procesos de paz, prevención de violencias basadas en género, economía del cuidado, participación política de las mujeres.</p>
+                            <p><strong>Perspectiva étnica:</strong> Consulta previa y consentimiento informado, fortalecimiento de gobiernos propios, protección de territorios ancestrales, revitalización cultural y lingüística.</p>
+                            <p><strong>Perspectiva generacional:</strong> Participación de jóvenes como agentes de cambio, programas de prevención del reclutamiento, formación en liderazgo juvenil, diálogo intergeneracional.</p>
+                        </div>
+                        
+                        <div class="approach-card">
+                            <h4>Enfoque Territorial</h4>
+                            <p><strong>Principios metodológicos:</strong></p>
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Reconocimiento de particularidades locales</li>
+                                <li>Construcción desde las capacidades endógenas</li>
+                                <li>Articulación multinivel (local-regional-nacional)</li>
+                                <li>Gestión integral del territorio</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="approach-card">
+                            <h4>Enfoque Participativo</h4>
+                            <p><strong>Metodologías:</strong></p>
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Investigación Acción Participativa (IAP)</li>
+                                <li>Educación Popular Transformadora</li>
+                                <li>Comunicación para el cambio social</li>
+                                <li>Planeación participativa</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
             },
-            "medio-oriente": {
-                title: "Procesos de Paz en Medio Oriente",
-                context: "Medio Oriente ha sido escenario de complejos procesos de paz en el contexto del conflicto árabe-israelí.",
-                processes: [
-                    "Acuerdos de Camp David (Egipto-Israel, 1978)",
-                    "Acuerdos de Oslo (palestino-israelí, 1993)",
-                    "Proceso de Madrid (años 90)",
-                    "Acuerdos de Abraham (2020)"
-                ]
-            }
-        };
-
-        // Datos detallados para los procesos de paz
-        const peaceProcesses = {
-            sudafrica: {
-                title: "Proceso de Paz en Sudáfrica",
-                description: "La transición negociada del apartheid a la democracia, evitando una guerra civil a gran escala.",
-                timeline: [
-                    { year: "1989", event: "FW de Klerk asume la presidencia e inicia reformas." },
-                    { year: "1990", event: "Liberación de Nelson Mandela después de 27 años." },
-                    { year: "1991", event: "Inician las negociaciones formales (CODESA)." },
-                    { year: "1993", event: "Mandela y de Klerk reciben el Premio Nobel de la Paz." },
-                    { year: "1994", event: "Primeras elecciones multirraciales; Mandela presidente." },
-                    { year: "1995", event: "Se establece la Comisión de la Verdad y la Reconciliación (TRC)." }
-                ],
-                elements: [
-                    "Comisión de la Verdad y Reconciliación (TRC) para investigar violaciones de derechos humanos",
-                    "Amnistía condicional para quienes confesaran crímenes políticos",
-                    "Programas de reparación para víctimas",
-                    "Reforma constitucional y establecimiento de una democracia no racial"
-                ],
-                lights: [
-                    "Evitó una guerra civil y permitió una transición pacífica",
-                    "Modelo de justicia restaurativa innovador a nivel mundial",
-                    "Reconocimiento de las víctimas y espacio para la reconciliación"
-                ],
-                shadows: [
-                    "No se abordaron suficientemente las desigualdades económicas heredadas del apartheid",
-                    "Muchas víctimas consideraron insuficientes las reparaciones",
-                    "Persisten altos niveles de desigualdad y violencia social"
-                ]
+            criterios: {
+                title: "Criterios de Calidad y Evaluación",
+                content: `
+                    <h3 class="text-2xl font-bold mb-4 text-accent-yellow">Indicadores de Evaluación</h3>
+                    <table class="criteria-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo de Indicador</th>
+                                <th>Ejemplos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Indicadores de Proceso</strong></td>
+                                <td>
+                                    <ul>
+                                        <li>• Nivel de participación comunitaria</li>
+                                        <li>• Inclusión de poblaciones diferenciales</li>
+                                        <li>• Calidad de alianzas construidas</li>
+                                        <li>• Fortalecimiento organizativo logrado</li>
+                                        <li>• Capacidades técnicas desarrolladas</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Indicadores de Resultado</strong></td>
+                                <td>
+                                    <ul>
+                                        <li>• Reducción de conflictividades locales</li>
+                                        <li>• Mejoramiento de condiciones de vida</li>
+                                        <li>• Fortalecimiento del tejido social</li>
+                                        <li>• Incremento de la confianza institucional</li>
+                                        <li>• Sostenibilidad de procesos iniciados</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Indicadores de Impacto</strong></td>
+                                <td>
+                                    <ul>
+                                        <li>• Transformación de imaginarios sobre el territorio</li>
+                                        <li>• Construcción de cultura de paz territorial</li>
+                                        <li>• Contribución a la reconciliación nacional</li>
+                                        <li>• Influencia en políticas públicas</li>
+                                        <li>• Replicabilidad en otros territorios</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `
             },
-            irlanda: {
-                title: "Proceso de Paz en Irlanda del Norte",
-                description: "El fin de los 'Troubles', un conflicto etno-nacionalista de 30 años.",
-                timeline: [
-                    { year: "1994", event: "Alto el fuego del IRA y grupos lealistas." },
-                    { year: "1996", event: "Inician conversaciones multipartidistas con mediación de George Mitchell." },
-                    { year: "1998", event: "Firma del Acuerdo de Viernes Santo." },
-                    { year: "2005", event: "El IRA anuncia el fin definitivo de su lucha armada." },
-                    { year: "2007", event: "Se forma un gobierno estable entre antiguos enemigos." }
-                ],
-                elements: [
-                    "Acuerdo de Viernes Santo: modelo de poder compartido",
-                    "Desarme de grupos paramilitares",
-                    "Reforma policial y de derechos humanos",
-                    "Mecanismos de cooperación Norte-Sur y Este-Oeste"
-                ],
-                lights: [
-                    "Puso fin a décadas de violencia sectaria",
-                    "Modelo innovador de gobierno de poder compartido",
-                    "Participación internacional (EE.UU., UE) como garantes"
-                ],
-                shadows: [
-                    "Fragilidad del acuerdo ante coyunturas como el Brexit",
-                    "Persisten la segregación residencial y tensiones comunitarias",
-                    "Lenta implementación de algunos aspectos del acuerdo"
-                ]
+            factores: {
+                title: "Factores Críticos de Éxito",
+                content: `
+                    <h3 class="text-2xl font-bold mb-4 text-accent-yellow">Factores para el Éxito del Laboratorio</h3>
+                    <div class="factor-grid">
+                        <div class="factor-card conditions">
+                            <h4><i class="fas fa-check-circle"></i> Condiciones Habilitantes</h4>
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Voluntad política institucional</li>
+                                <li>Compromiso comunitario sostenido</li>
+                                <li>Recursos técnicos y financieros suficientes</li>
+                                <li>Acompañamiento de cooperación internacional</li>
+                                <li>Condiciones mínimas de seguridad</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="factor-card risks">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Riesgos y Mitigación</h4>
+                            <ul class="list-disc pl-5 mt-2">
+                                <li><strong>Riesgo:</strong> Instrumentalización política<br><strong>Mitigación:</strong> Autonomía de procesos comunitarios</li>
+                                <li><strong>Riesgo:</strong> Fragmentación de intervenciones<br><strong>Mitigación:</strong> Coordinación interinstitucional</li>
+                                <li><strong>Riesgo:</strong> Insostenibilidad financiera<br><strong>Mitigación:</strong> Diversificación de fuentes de financiación</li>
+                                <li><strong>Riesgo:</strong> Resistencias de actores armados<br><strong>Mitigación:</strong> Estrategias de protección y incidencia</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
             },
-            guatemala: {
-                title: "Proceso de Paz en Guatemala",
-                description: "La negociación para poner fin a 36 años de una brutal guerra civil y genocidio.",
-                timeline: [
-                    { year: "1987", event: "Acuerdos de Esquipulas II para la paz en Centroamérica." },
-                    { year: "1991", event: "Inician negociaciones directas entre el Gobierno y la guerrilla (URNG)." },
-                    { year: "1995", event: "La Iglesia Católica inicia el proyecto de memoria REMHI." },
-                    { year: "1996", event: "Firma del Acuerdo de Paz Firme y Duradera." },
-                    { year: "1999", event: "La Comisión para el Esclarecimiento Histórico (CEH) concluye que hubo genocidio." }
-                ],
-                elements: [
-                    "Acuerdos sobre derechos indígenas y identidad cultural",
-                    "Compromisos de reforma fiscal y agraria",
-                    "Medidas de desmilitarización y fortalecimiento del poder civil",
-                    "Comisión de Esclarecimiento Histórico y programas de reparación"
-                ],
-                lights: [
-                    "Puso fin a un conflicto prolongado y brutal",
-                    "Reconocimiento del carácter multiétnico y pluricultural del país",
-                    "Avances en la desmilitarización de la sociedad"
-                ],
-                shadows: [
-                    "Implementación limitada de los acuerdos socioeconómicos",
-                    "Persisten altos niveles de pobreza y desigualdad",
-                    "Continuación de la violencia criminal y debilidad institucional"
-                ]
+            marco: {
+                title: "Marco Normativo y Política Pública",
+                content: `
+                    <h3 class="text-2xl font-bold mb-4 text-accent-yellow">Fundamentos Jurídicos y Políticas</h3>
+                    <div class="legal-grid">
+                        <div class="legal-card">
+                            <h4>Fundamentos Jurídicos</h4>
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Acuerdo Final de Paz (2016)</li>
+                                <li>Ley 1448 de 2011 (Víctimas y Restitución de Tierras)</li>
+                                <li>Decreto 893 de 2017 (PDET)</li>
+                                <li>Ley 2272 de 2022 (Paz Total)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="legal-card">
+                            <h4>Articulación con Políticas Públicas</h4>
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Programas de Desarrollo con Enfoque Territorial (PDET)</li>
+                                <li>Política Nacional de Paz y Convivencia</li>
+                                <li>Política Pública de Víctimas</li>
+                                <li>Estrategia de Zonas Estratégicas de Intervención Integral (ZEII)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="text-xl font-bold mb-2 text-accent-yellow">Fuentes Académicas de Referencia</h4>
+                        <ul class="list-disc pl-5">
+                            <li>Castañeda, D. (2009). "¿Qué significan los Laboratorios de Paz para la Unión Europea?" Colombia Internacional, 69, 162-179.</li>
+                            <li>Centro de Memoria, Paz y Reconciliación. (2023). Laboratorios de paz territoriales.</li>
+                            <li>Corporación Desarrollo y Paz del Magdalena Medio. (2010). Metodología de los Laboratorios de Paz.</li>
+                            <li>Unión Europea. (2008). Evaluación del Primer Laboratorio de Paz del Magdalena Medio.</li>
+                        </ul>
+                    </div>
+                `
             }
         };
 
@@ -1309,6 +1724,7 @@
                 }
             }
             updateProgress(slideNumber);
+            updateSpecialButtonVisibility(); // Actualizar visibilidad del botón especial
         }
         
         function updateProgress(slideNumber) {
@@ -1333,6 +1749,17 @@
                 currentSlide--; 
                 showSlide(currentSlide); 
             } 
+        }
+
+        // Control de visibilidad del botón especial
+        function updateSpecialButtonVisibility() {
+            const act = getActForSlide(currentSlide);
+            // Mostrar el botón en la portada (slide 1) y en el Acto III (slides 15-23)
+            if (currentSlide === 1 || (act === 3 && currentSlide >= 15)) {
+                specialButton.classList.add('visible');
+            } else {
+                specialButton.classList.remove('visible');
+            }
         }
 
         // Modal para regiones del mapa
@@ -1391,7 +1818,148 @@
             }, 300);
         }
 
-        // Modal para procesos de paz detallados
+        // Datos para procesos de paz
+        const regionData = {
+            europa: {
+                title: "Procesos de Paz en Europa",
+                context: "Europa ha sido escenario de importantes procesos de paz, especialmente tras los conflictos en los Balcanes e Irlanda del Norte.",
+                processes: [
+                    "Acuerdos de Viernes Santo (Irlanda del Norte, 1998)",
+                    "Acuerdos de Dayton (Bosnia-Herzegovina, 1995)",
+                    "Proceso de paz en los Balcanes (años 90)",
+                    "Acuerdos de Helsinki y procesos de distensión durante la Guerra Fría"
+                ]
+            },
+            africa: {
+                title: "Procesos de Paz en África",
+                context: "África ha experimentado múltiples procesos de paz para resolver conflictos post-coloniales y guerras civiles.",
+                processes: [
+                    "Sudáfrica: Transición del apartheid (1990-1994)",
+                    "Mozambique: Acuerdo General de Paz (1992)",
+                    "Angola: Acuerdo de Luena (2002)",
+                    "Sierra Leona: Acuerdos de Lomé (1999) y Abuja (2000)",
+                    "Liberia: Acuerdo de Accra (2003)",
+                    "Sudán: Acuerdo Integral de Paz (2005)"
+                ]
+            },
+            america: {
+                title: "Procesos de Paz en América Latina",
+                context: "América Latina ha desarrollado procesos de paz para superar dictaduras y conflictos armados internos.",
+                processes: [
+                    "Colombia: Proceso de La Habana con las FARC (2016)",
+                    "Guatemala: Acuerdos de Paz Firme y Duradera (1996)",
+                    "El Salvador: Acuerdos de Chapultepec (1992)",
+                    "Nicaragua: Proceso de Esquipulas y transición (años 80-90)"
+                ]
+            },
+            asia: {
+                title: "Procesos de Paz en Asia-Pacífico",
+                context: "Asia ha enfrentado procesos de paz tras conflictos coloniales, guerras civiles y procesos de independencia.",
+                processes: [
+                    "Camboya: Acuerdos de París (1991)",
+                    "Timor Oriental: proceso de independencia",
+                    "Filipinas: procesos con grupos (MILF, MNLF)",
+                    "Sri Lanka: intentos de proceso de paz",
+                    "Nepal: Acuerdo Integral de Paz (2006)"
+                ]
+            },
+            "medio-oriente": {
+                title: "Procesos de Paz en Medio Oriente",
+                context: "Medio Oriente ha sido escenario de complejos procesos de paz en el contexto del conflicto árabe-israelí.",
+                processes: [
+                    "Acuerdos de Camp David (Egipto-Israel, 1978)",
+                    "Acuerdos de Oslo (palestino-israelí, 1993)",
+                    "Proceso de Madrid (años 90)",
+                    "Acuerdos de Abraham (2020)"
+                ]
+            }
+        };
+
+        const peaceProcesses = {
+            sudafrica: {
+                title: "Proceso de Paz en Sudáfrica",
+                description: "La transición negociada del apartheid a la democracia, evitando una guerra civil a gran escala.",
+                timeline: [
+                    { year: "1989", event: "FW de Klerk asume la presidencia e inicia reformas." },
+                    { year: "1990", event: "Liberación de Nelson Mandela después de 27 años." },
+                    { year: "1991", event: "Inician las negociaciones formales (CODESA)." },
+                    { year: "1993", event: "Mandela y de Klerk reciben el Premio Nobel de la Paz." },
+                    { year: "1994", event: "Primeras elecciones multirraciales; Mandela presidente." },
+                    { year: "1995", event: "Se establece la Comisión de la Verdad y la Reconciliación (TRC)." }
+                ],
+                elements: [
+                    "Comisión de la Verdad y Reconciliación (TRC) para investigar violaciones de derechos humanos",
+                    "Amnistía condicional para quienes confesaran crímenes políticos",
+                    "Programas de reparación para víctimas",
+                    "Reforma constitucional y establecimiento de una democracia no racial"
+                ],
+                lights: [
+                    "Evitó una guerra civil y permitió una transición pacífica",
+                    "Modelo de justicia restaurativa innovador a nivel mundial",
+                    "Reconocimiento de las víctimas y espacio para la reconciliación"
+                ],
+                shadows: [
+                    "No se abordaron suficientemente las desigualdades económicas heredadas del apartheid",
+                    "Muchas víctimas consideraron insuficientes las reparaciones",
+                    "Persisten altos niveles de desigualdad y violencia social"
+                ]
+            },
+            irlanda: {
+                title: "Proceso de Paz en Irlanda del Norte",
+                description: "El fin de los 'Troubles', un conflicto etno-nacionalista de 30 años.",
+                timeline: [
+                    { year: "1994", event: "Alto el fuego del IRA y grupos lealistas." },
+                    { year: "1996", event: "Inician conversaciones multipartidistas con mediación de George Mitchell." },
+                    { year: "1998", event: "Firma del Acuerdo de Viernes Santo." },
+                    { year: "2005", event: "El IRA anuncia el fin definitivo de su lucha armada." },
+                    { year: "2007", event: "Se forma un gobierno estable entre antiguos enemigos." }
+                ],
+                elements: [
+                    "Acuerdo de Viernes Santo: modelo de poder compartido",
+                    "Desarme de grupos paramilitares",
+                    "Reforma policial y de derechos humanos",
+                    "Mecanismos de cooperación Norte-Sur y Este-Oeste"
+                ],
+                lights: [
+                    "Puso fin a décadas de violencia sectaria",
+                    "Modelo innovador de gobierno de poder compartido",
+                    "Participación internacional (EE.UU., UE) como garantes"
+                ],
+                shadows: [
+                    "Fragilidad del acuerdo ante coyunturas como el Brexit",
+                    "Persisten la segregación residencial y tensiones comunitarias",
+                    "Lenta implementación de algunos aspectos del acuerdo"
+                ]
+            },
+            guatemala: {
+                title: "Proceso de Paz en Guatemala",
+                description: "La negociación para poner fin a 36 años de una brutal guerra civil y genocidio.",
+                timeline: [
+                    { year: "1987", event: "Acuerdos de Esquipulas II para la paz en Centroamérica." },
+                    { year: "1991", event: "Inician negociaciones directas entre el Gobierno y la guerrilla (URNG)." },
+                    { year: "1995", event: "La Iglesia Católica inicia el proyecto de memoria REMHI." },
+                    { year: "1996", event: "Firma del Acuerdo de Paz Firme y Duradera." },
+                    { year: "1999", event: "La Comisión para el Esclarecimiento Histórico (CEH) concluye que hubo genocidio." }
+                ],
+                elements: [
+                    "Acuerdos sobre derechos indígenas y identidad cultural",
+                    "Compromisos de reforma fiscal y agraria",
+                    "Medidas de desmilitarización y fortalecimiento del poder civil",
+                    "Comisión de Esclarecimiento Histórico y programas de reparación"
+                ],
+                lights: [
+                    "Puso fin a un conflicto prolongado y brutal",
+                    "Reconocimiento del carácter multiétnico y pluricultural del país",
+                    "Avances en la desmilitarización de la sociedad"
+                ],
+                shadows: [
+                    "Implementación limitada de los acuerdos socioeconómicos",
+                    "Persisten altos niveles de pobreza y desigualdad",
+                    "Continuación de la violencia criminal y debilidad institucional"
+                ]
+            }
+        };
+
         function openPeaceProcessModal(countryKey) {
             const data = peaceProcesses[countryKey];
             if (!data) return;
@@ -1475,6 +2043,77 @@
             }, 300);
         }
 
+        // Funcionalidad para el laboratorio de paz
+        let currentLabTab = 'definicion';
+        const labTabs = document.querySelectorAll('.lab-tab');
+        const labContent = document.getElementById('lab-content');
+        const labProgress = document.getElementById('lab-progress');
+        const labPrevBtn = document.getElementById('lab-prev-btn');
+        const labNextBtn = document.getElementById('lab-next-btn');
+
+        function openLaboratoryModal() {
+            currentLabTab = 'definicion';
+            renderLabContent();
+            const modal = document.getElementById('laboratory-modal-container');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('active', 'opacity-100');
+            }, 10);
+        }
+
+        function closeLaboratoryModal() {
+            const modal = document.getElementById('laboratory-modal-container');
+            modal.classList.remove('active', 'opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function renderLabContent() {
+            // Actualizar pestañas activas
+            labTabs.forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.tab === currentLabTab);
+            });
+            
+            // Actualizar contenido
+            labContent.innerHTML = labData[currentLabTab].content;
+            
+            // Actualizar progreso
+            const tabIndex = Array.from(labTabs).findIndex(tab => tab.dataset.tab === currentLabTab);
+            labProgress.textContent = `${tabIndex + 1}/${labTabs.length}`;
+            
+            // Actualizar estado de botones
+            labPrevBtn.disabled = tabIndex === 0;
+            labNextBtn.disabled = tabIndex === labTabs.length - 1;
+        }
+
+        function nextLabTab() {
+            const tabIndex = Array.from(labTabs).findIndex(tab => tab.dataset.tab === currentLabTab);
+            if (tabIndex < labTabs.length - 1) {
+                currentLabTab = labTabs[tabIndex + 1].dataset.tab;
+                renderLabContent();
+            }
+        }
+
+        function prevLabTab() {
+            const tabIndex = Array.from(labTabs).findIndex(tab => tab.dataset.tab === currentLabTab);
+            if (tabIndex > 0) {
+                currentLabTab = labTabs[tabIndex - 1].dataset.tab;
+                renderLabContent();
+            }
+        }
+
+        // Event listeners para las pestañas del laboratorio
+        labTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                currentLabTab = tab.dataset.tab;
+                renderLabContent();
+            });
+        });
+
+        labNextBtn.addEventListener('click', nextLabTab);
+        labPrevBtn.addEventListener('click', prevLabTab);
+
         // Funcionalidades adicionales
         function toggleOverview() {
             // Ir a la slide de agenda
@@ -1519,6 +2158,7 @@
                 closeModal();
                 closeRegionModal();
                 closePeaceProcessModal();
+                closeLaboratoryModal();
                 bubbleContent.classList.remove('active');
             }
         });
@@ -1561,6 +2201,7 @@
         showSlide(currentSlide);
         initParticles();
         setupWordCloud();
+        updateSpecialButtonVisibility(); // Asegurar que el botón tenga el estado correcto al cargar
     </script>
 </body>
 </html>
