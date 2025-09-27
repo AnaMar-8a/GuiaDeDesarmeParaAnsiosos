@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- ============== METADATOS Y CONFIGURACIÓN DEL DOCUMENTO ============== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Procesos y Laboratorios de Paz</title>
-    <!-- Tailwind CSS para utilidades rápidas -->
+
+    <!-- ============== ENLACES A RECURSOS EXTERNOS (FUENTES Y ESTILOS) ============== -->
+    <!-- Framework de CSS (Tailwind) para utilidades rápidas. No requiere descarga. -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fuentes de Google -->
+    
+    <!-- Fuentes personalizadas desde Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
-    <!-- RUTA CORREGIDA: Le decimos al HTML que busque style.css dentro de la carpeta "styles" -->
+    
+    <!-- Enlace a nuestra hoja de estilos personalizada (CSS) -->
+    <!-- La ruta 'styles/style.css' indica que el archivo está en la carpeta 'styles' -->
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body class="text-principal">
     
-    <!-- Canvas para el fondo animado -->
+    <!-- ============== ELEMENTOS DE LA INTERFAZ PRINCIPAL ============== -->
+    <!-- Canvas: Lienzo donde JavaScript dibujará la animación de fondo -->
     <canvas id="dynamic-background"></canvas>
-    <!-- Contenedor para los pop-ups -->
+    
+    <!-- Overlay para los pop-ups: Un contenedor oculto que se mostrará sobre el contenido -->
     <div id="popup-overlay" class="popup-overlay"></div>
 
-    <!-- Marco Fijo -->
+    <!-- Marco Fijo (Header y Footer) -->
     <header class="frame-header">Procesos y Laboratorios de paz</header>
     <footer class="frame-footer">
         Docente: 
@@ -29,15 +37,16 @@
         </a>
     </footer>
 
-    <!-- Botón Flotante de Co-creación -->
+    <!-- Botón Flotante (FAB - Floating Action Button) para Co-creación -->
     <a href="mailto:gihomara.aristizabal3906@unaula.edu.co" class="fab" aria-label="Enviar correo para co-crear">
         <span class="tooltip">Co-crear</span>
+        <!-- Icono de correo en formato SVG (gráficos vectoriales) -->
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
     </a>
 
-    <!-- Contenedor de las Diapositivas -->
+    <!-- ============== CONTENIDO PRINCIPAL (LAS DIAPOSITIVAS) ============== -->
     <main>
         <!-- Diapositiva 1: Portada -->
         <section id="slide1" class="slide active">
@@ -60,7 +69,8 @@
             </div>
         </section>
 
-        <!-- Diapositiva 3: Agenda -->
+        <!-- Las demás diapositivas siguen la misma estructura... -->
+        
         <section id="slide3" class="slide bg-gold">
             <div class="p-8 w-full max-w-5xl text-center">
                 <h2 class="font-heading text-5xl md:text-7xl mb-12 animated-item text-acento">Nuestra hoja de ruta</h2>
@@ -73,13 +83,10 @@
             </div>
         </section>
         
-        <!-- Diapositiva 4: Conflicto -->
         <section id="slide4" class="slide bg-orange">
             <div class="w-full max-w-4xl p-8 card text-center">
                 <h3 class="font-heading text-6xl text-acento mb-4 animated-item">Conflicto</h3>
-                <p class="text-xl md:text-2xl leading-relaxed animated-item delay-1">
-                    Una relación social donde dos o más actores perciben que sus objetivos son incompatibles.
-                </p>
+                <p class="text-xl md:text-2xl leading-relaxed animated-item delay-1">Una relación social donde dos o más actores perciben que sus objetivos son incompatibles.</p>
                 <div class="text-lg mt-6 bg-white/50 p-4 rounded-xl space-y-3 animated-item delay-2 text-left">
                     <p>No es inherentemente negativo, sino un <strong class="text-acento-2">motor de transformación social</strong> si se gestiona constructivamente. <span class="author-trigger" data-popup="galtung">J. Galtung (1996)</span></p>
                     <p>Es una <strong class="text-acento-2">oportunidad para transformar</strong> relaciones y construir nuevas formas de convivencia. <span class="author-trigger" data-popup="lederach">J. P. Lederach (1997)</span></p>
@@ -87,7 +94,6 @@
             </div>
         </section>
 
-        <!-- Diapositiva 5: Violencias -->
         <section id="slide5" class="slide bg-magenta">
             <div class="w-full max-w-5xl p-8 card">
                 <h3 class="font-heading text-6xl text-acento mb-6 text-center animated-item">Violencia(s)</h3>
@@ -100,23 +106,17 @@
             </div>
         </section>
 
-        <!-- Diapositiva 6: Paz (en plural) -->
         <section id="slide6" class="slide bg-gold">
             <div class="w-full max-w-4xl p-8 card text-center">
                 <h3 class="font-heading text-6xl text-acento mb-4 animated-item">Paz (en plural)</h3>
-                <p class="text-xl md:text-2xl leading-relaxed animated-item delay-1">
-                   Reconoce la diversidad histórica, cultural y territorial del concepto. No hay una paz única, sino <strong class="text-acento-2">múltiples paces</strong>.
-                </p>
+                <p class="text-xl md:text-2xl leading-relaxed animated-item delay-1">Reconoce la diversidad histórica, cultural y territorial del concepto. No hay una paz única, sino <strong class="text-acento-2">múltiples paces</strong>.</p>
                 <div class="mt-6 bg-white/50 p-4 rounded-xl animated-item delay-2">
                     <h4 class="text-xl font-semibold">Paz Imperfecta</h4>
-                    <p class="text-lg mt-2">
-                        Un proceso parcial, conflictivo y en constante construcción, que se edifica incluso en medio del conflicto. <span class="author-trigger" data-popup="munoz">F. A. Muñoz (2001)</span>
-                    </p>
+                    <p class="text-lg mt-2">Un proceso parcial, conflictivo y en constante construcción, que se edifica incluso en medio del conflicto. <span class="author-trigger" data-popup="munoz">F. A. Muñoz (2001)</span></p>
                 </div>
             </div>
         </section>
 
-        <!-- Diapositiva 7: Paz Positiva / Negativa -->
         <section id="slide7" class="slide bg-orange">
              <div class="w-full max-w-4xl p-8 card text-center">
                 <h3 class="font-heading text-5xl text-acento mb-6 animated-item">Paz Positiva vs. Negativa</h3>
@@ -128,7 +128,6 @@
             </div>
         </section>
         
-        <!-- Diapositiva 8: Reconciliación -->
         <section id="slide8" class="slide bg-red-orange">
             <div class="w-full max-w-4xl p-8 card">
                  <h3 class="font-heading text-6xl text-acento mb-6 text-center animated-item">Reconciliación</h3>
@@ -142,13 +141,10 @@
             </div>
         </section>
 
-        <!-- Diapositiva 9: Justicia Transicional -->
         <section id="slide9" class="slide bg-gold">
             <div class="w-full max-w-4xl p-8 card text-center">
                 <h3 class="font-heading text-5xl text-acento mb-4 animated-item">Justicia Transicional</h3>
-                <p class="text-xl md:text-2xl leading-relaxed animated-item delay-1">
-                    Mecanismos para enfrentar un legado de violaciones masivas a los DDHH y transformar el tejido social.
-                </p>
+                <p class="text-xl md:text-2xl leading-relaxed animated-item delay-1">Mecanismos para enfrentar un legado de violaciones masivas a los DDHH y transformar el tejido social.</p>
                 <div class="text-lg mt-6 grid grid-cols-2 gap-4 animated-item delay-2">
                     <span class="bg-white/50 p-3 rounded-lg font-semibold">Verdad</span>
                     <span class="bg-white/50 p-3 rounded-lg font-semibold">Justicia</span>
@@ -158,7 +154,6 @@
             </div>
         </section>
         
-        <!-- Diapositiva 10: Transición -->
         <section id="slide10" class="slide">
             <div class="text-center p-8">
                 <div class="text-6xl animate-float animated-item">🌍</div>
@@ -167,7 +162,6 @@
             </div>
         </section>
         
-        <!-- Diapositivas de Casos -->
         <section id="slide11" class="slide bg-magenta">
             <div class="w-full max-w-5xl p-8 card text-center">
                 <div class="animated-item">
@@ -213,7 +207,6 @@
             </div>
         </section>
 
-        <!-- Diapositiva 14: Procesos Emblemáticos -->
         <section id="slide14" class="slide bg-orange">
             <div class="w-full max-w-6xl p-8 card text-center">
                 <h3 class="font-heading text-5xl text-acento mb-8 animated-item">Procesos de Paz Emblemáticos</h3>
@@ -247,7 +240,6 @@
             </div>
         </section>
 
-        <!-- Diapositiva 15: Taller -->
         <section id="slide15" class="slide bg-gold">
             <div class="text-center p-8 w-full max-w-4xl">
                 <h2 class="font-heading text-5xl md:text-6xl mb-8 animated-item text-acento">Taller: Manos a la Obra</h2>
@@ -262,7 +254,6 @@
             </div>
         </section>
 
-        <!-- Diapositiva 16: Cierre -->
         <section id="slide16" class="slide bg-magenta">
             <div class="text-center p-8">
                 <div class="text-6xl animated-item">✅</div>
@@ -273,7 +264,8 @@
         </section>
     </main>
     
-    <!-- Navegación -->
+    <!-- ============== NAVEGACIÓN Y SCRIPT PRINCIPAL ============== -->
+    <!-- Botones de navegación (anterior/siguiente) -->
     <button id="prevBtn" class="nav-button">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
     </button>
@@ -281,7 +273,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
     </button>
     
-    <!-- RUTA CORREGIDA: Le decimos al HTML que busque script.js dentro de la carpeta "scripts" -->
+    <!-- Enlace a nuestro script de interactividad (JavaScript) -->
+    <!-- La ruta 'scripts/script.js' indica que el archivo está en la carpeta 'scripts' -->
     <script src="scripts/script.js"></script>
 
 </body>
