@@ -1,3 +1,4 @@
+/* ============== CONFIGURACIÓN GLOBAL Y VARIABLES DE COLOR ============== */
 :root {
     --color-dark-red: #5a1a1a;
     --color-magenta: #8A2B74;
@@ -7,26 +8,29 @@
     --color-background: #FFFBF0; 
 }
 
+/* ============== ESTILOS BASE DEL CUERPO Y TIPOGRAFÍA ============== */
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--color-background);
     color: var(--color-dark-red);
-    overflow: hidden;
+    overflow: hidden; /* Evita barras de scroll no deseadas */
 }
 
 .font-heading {
     font-family: 'Pacifico', cursive;
 }
 
+/* ============== FONDO ANIMADO (CANVAS) ============== */
 #dynamic-background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: -1; /* Se asegura de que esté detrás de todo el contenido */
 }
 
+/* ============== ESTRUCTURA Y TRANSICIÓN DE DIAPOSITIVAS ============== */
 .slide {
     position: absolute;
     width: 100%;
@@ -37,29 +41,32 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    opacity: 0;
+    opacity: 0; /* Por defecto, las diapositivas están ocultas */
     transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
-    transform: scale(0.95);
+    transform: scale(0.95); /* Efecto de zoom sutil en la transición */
     visibility: hidden;
-    padding: 5rem 2.5rem;
+    padding: 5rem 2.5rem; /* Espaciado interno para no chocar con los marcos */
 }
 
 .slide.active {
-    opacity: 1;
+    opacity: 1; /* La diapositiva activa se hace visible */
     transform: scale(1);
     visibility: visible;
     z-index: 10;
 }
 
+/* Colores de fondo para cada diapositiva */
 .bg-gold { background-color: rgba(242, 192, 59, 0.25); }
 .bg-orange { background-color: rgba(228, 138, 49, 0.25); }
 .bg-red-orange { background-color: rgba(184, 50, 27, 0.25); }
 .bg-magenta { background-color: rgba(138, 43, 116, 0.25); }
 
+/* Clases de utilidad para colores de texto */
 .text-principal { color: var(--color-dark-red); }
 .text-acento { color: var(--color-magenta); }
 .text-acento-2 { color: var(--color-red-orange); }
 
+/* ============== ANIMACIONES DE ENTRADA DE ELEMENTOS ============== */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -73,6 +80,8 @@ body {
 
 .animate-fadeIn { animation: fadeIn 1s ease-out forwards; }
 .animate-float { animation: float 6s ease-in-out infinite; }
+
+/* Control de la animación escalonada de los ítems */
 .animated-item { opacity: 0; }
 .active .animated-item { animation: fadeIn 0.8s ease-out forwards; }
 .active .delay-1 { animation-delay: 0.2s; }
@@ -81,6 +90,7 @@ body {
 .active .delay-4 { animation-delay: 0.8s; }
 .active .delay-5 { animation-delay: 1s; }
 
+/* ============== BOTONES DE NAVEGACIÓN ============== */
 .nav-button {
     position: fixed;
     bottom: 2rem;
@@ -104,13 +114,16 @@ body {
 #prevBtn { left: 2.5rem; }
 #nextBtn { right: 2.5rem; }
 
+/* ============== COMPONENTES DE LA INTERFAZ ============== */
+/* Tarjetas de contenido */
 .card {
     background: rgba(255, 251, 240, 0.92); 
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); /* Efecto de desenfoque del fondo */
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
 }
 
+/* Marco fijo */
 .frame-header, .frame-footer {
     position: fixed;
     width: 100%;
@@ -120,17 +133,18 @@ body {
     font-weight: 600;
     color: var(--color-dark-red);
     opacity: 0.8;
-    pointer-events: none;
+    pointer-events: none; /* Evita que interfiera con los clics */
 }
 .frame-header { top: 0; text-align: left; }
 .frame-footer { bottom: 0; text-align: right; }
 .frame-footer a {
-    pointer-events: auto;
+    pointer-events: auto; /* Permite hacer clic en el enlace */
     text-decoration: underline;
     transition: color 0.3s ease;
 }
 .frame-footer a:hover { color: var(--color-magenta); }
 
+/* Botón flotante */
 .fab {
     position: fixed;
     top: 50%;
@@ -169,7 +183,7 @@ body {
 }
 .fab:hover .tooltip { opacity: 1; }
 
-/* Estilos para Pop-ups */
+/* ============== ESTILOS PARA POP-UPS Y MODALES ============== */
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -178,7 +192,7 @@ body {
     height: 100%;
     background: rgba(0,0,0,0.4);
     z-index: 90;
-    display: none;
+    display: none; /* Oculto por defecto */
     opacity: 0;
     transition: opacity 0.3s ease;
     align-items: center;
@@ -186,7 +200,7 @@ body {
     padding: 1rem;
 }
 .popup-overlay.visible {
-    display: flex;
+    display: flex; /* Se muestra con flex para centrar contenido */
     opacity: 1;
 }
 
@@ -219,11 +233,14 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
+
+/* Colores para pop-ups de autores */
 .bg-popup-galtung { background-color: var(--color-orange); }
 .bg-popup-lederach { background-color: var(--color-red-orange); }
 .bg-popup-munoz { background-color: var(--color-magenta); }
 .bg-popup-bourdieu { background-color: var(--color-dark-red); }
 
+/* Gatilladores de pop-ups (texto y botones) */
 .author-trigger {
     cursor: pointer;
     text-decoration: underline;
@@ -235,7 +252,21 @@ body {
     color: var(--color-magenta);
 }
 
-/* Estilos para Modals de Casos */
+.info-button {
+    background-color: var(--color-dark-red);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.info-button:hover {
+    background-color: var(--color-red-orange);
+    transform: scale(1.05);
+}
+
+/* Estilos específicos para modales de casos de estudio */
 .case-modal { max-width: 800px; }
 .timeline {
     position: relative;
@@ -257,18 +288,3 @@ body {
     background-color: white;
     border: 3px solid var(--color-background);
 }
-
-.info-button {
-    background-color: var(--color-dark-red);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-.info-button:hover {
-    background-color: var(--color-red-orange);
-    transform: scale(1.05);
-}
-
