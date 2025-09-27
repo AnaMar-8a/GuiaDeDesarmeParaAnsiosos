@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sesión 1 — Laboratorio de Paz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .slide { 
+      display: none; 
+      min-height: 100vh; 
+      padding: 4rem; 
+    }
+    .slide.active { display: block; }
+    .animate-on-show {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .active .animate-on-show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .title-decorator {
+      width: 80px; height: 6px;
+      background: #f59e0b;
+      border-radius: 9999px;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Portada -->
+  <div id="slide-1" class="slide active flex flex-col justify-center items-center text-center">
+    <h1 class="text-6xl md:text-8xl font-bold animate-on-show">Sesión 1</h1>
+    <p class="text-2xl mt-6 animate-on-show">Laboratorio de Paz • Escuela Las Juanas</p>
+  </div>
+
+  <!-- Introducción -->
+  <div id="slide-2" class="slide flex flex-col justify-center text-center">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Introducción</h2>
+    <div class="title-decorator mx-auto animate-on-show"></div>
+    <p class="text-xl max-w-3xl mx-auto mt-6 leading-relaxed animate-on-show">
+      Esta sesión busca abrir el debate sobre memoria, justicia y paz,
+      entendidos como <span class="text-yellow-600 font-semibold">campos de disputa</span>.
+      El fin último es la construcción de un <strong>Laboratorio de Paz</strong>.
+    </p>
+  </div>
+
+  <!-- ACTO I -->
+  <div id="slide-3b" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">🎬 Acto I</h2>
+    <div class="title-decorator !mx-0 animate-on-show"></div>
+    <p class="text-xl max-w-5xl font-medium leading-relaxed mt-6 animate-on-show">
+      El pasado como <strong class="text-yellow-600">campo de disputa</strong>. 
+      La memoria no es neutra, es conflicto y resistencia.
+    </p>
+  </div>
+
+  <div id="slide-3c" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Memoria Social</h2>
+    <div class="title-decorator !mx-0 animate-on-show"></div>
+    <p class="text-xl max-w-5xl leading-relaxed animate-on-show">
+      Según <strong>Elizabeth Jelin</strong>, la memoria es 
+      <span class="text-orange-600">selectiva y disputada</span>. 
+      Diferentes actores pugnan por imponer sus relatos del pasado. 
+      Recordar es un acto político.
+    </p>
+  </div>
+
+  <div id="slide-3d" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Historia como Interrupción</h2>
+    <p class="text-xl max-w-5xl mt-6 animate-on-show">
+      <strong>Walter Benjamin</strong>: la historia no es continuidad lineal, 
+      sino <span class="text-yellow-600">interrupción</span>. 
+      Recordar es resistir al olvido impuesto por los vencedores.
+    </p>
+  </div>
+
+  <div id="slide-3e" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Justicia Transicional</h2>
+    <p class="text-xl max-w-5xl mt-6 animate-on-show">
+      Para <strong>Teitel</strong> y <strong>Hayner</strong>, se debate entre 
+      <span class="text-orange-600">verdad, reparación y olvido</span>. 
+      No es solo tribunales, sino un proceso social de reconstrucción.
+    </p>
+  </div>
+
+  <div id="slide-3f" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Memoria Feminista y Antirracista</h2>
+    <p class="text-xl max-w-5xl mt-6 animate-on-show">
+      <strong>Catherine Walsh</strong> propone pensar la memoria desde 
+      <span class="text-yellow-600">el cuerpo y el territorio</span>. 
+      Una memoria situada, feminista y antirracista.
+    </p>
+  </div>
+
+  <!-- ACTO II (placeholder para mantener estructura) -->
+  <div id="slide-10" class="slide flex flex-col justify-center text-center">
+    <h2 class="text-5xl md:text-7xl animate-on-show">🎬 Acto II</h2>
+    <p class="text-xl mt-6 animate-on-show">Los retos del presente.</p>
+  </div>
+
+  <!-- ACTO III -->
+  <div id="slide-15b" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">🎬 Acto III</h2>
+    <p class="text-xl max-w-5xl mt-6 animate-on-show">
+      El futuro como <strong class="text-yellow-600">laboratorio</strong>. 
+      Espacio de experimentación y disputa sobre la paz y la justicia.
+    </p>
+  </div>
+
+  <div id="slide-15c" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Paz Imperfecta</h2>
+    <p class="text-xl max-w-5xl mt-6 animate-on-show">
+      <strong>Vicent Martínez Guzmán</strong>: 
+      la paz no es meta final, sino <span class="text-orange-600">proceso inacabado</span>. 
+      Siempre parcial, siempre en construcción.
+    </p>
+  </div>
+
+  <div id="slide-15d" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Pedagogías Críticas de Paz</h2>
+    <p class="text-xl max-w-5xl mt-6 animate-on-show">
+      Desde <strong>Paulo Freire</strong> y <strong>Catherine Walsh</strong>: 
+      pedagogías que parten del diálogo, la conciencia crítica y 
+      la <span class="text-yellow-600">transformación social</span>.
+    </p>
+  </div>
+
+  <div id="slide-15e" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Investigación-Acción</h2>
+    <p class="text-xl max-w-5xl mt-6 animate-on-show">
+      Inspirada en <strong>Orlando Fals Borda</strong>: 
+      un método de <span class="text-orange-600">construcción colectiva de saberes</span>, 
+      donde investigar es también transformar.
+    </p>
+  </div>
+
+  <div id="slide-15f" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Ecologías de Saberes</h2>
+    <p class="text-xl max-w-5xl mt-6 animate-on-show">
+      <strong>Boaventura de Sousa Santos</strong>: 
+      articular saberes académicos, comunitarios y políticos. 
+      No hay conocimiento único: hay <span class="text-yellow-600">diálogo de saberes</span>.
+    </p>
+  </div>
+
+  <div id="slide-15g" class="slide text-left">
+    <h2 class="text-5xl md:text-7xl tracking-tighter animate-on-show">Laboratorio de Paz</h2>
+    <p class="text-xl max-w-5xl mt-6 animate-on-show">
+      Como <strong>metodología</strong>: espacio de experimentación e investigación-acción. <br/>
+      Como <strong>política</strong>: disputa de sentidos sobre memoria, justicia y paz. 
+    </p>
+    <p class="text-lg text-gray-700 mt-6 animate-on-show">
+      Dinámica inicial: <span class="text-orange-600">nube de palabras</span> 
+      como ejercicio de construcción colectiva.
+    </p>
+  </div>
+
+  <!-- Navegación -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') showSlide(current + 1);
+      if (e.key === 'ArrowLeft') showSlide(current - 1);
+    });
+  </script>
+</body>
+</html>
