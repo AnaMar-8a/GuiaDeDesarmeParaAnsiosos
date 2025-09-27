@@ -1,38 +1,60 @@
+// Espera a que todo el contenido del HTML se haya cargado antes de ejecutar el script.
+// Es una buena práctica para evitar errores si el script intenta manipular elementos que aún no existen.
 document.addEventListener('DOMContentLoaded', () => {
-    // --- NAVEGACIÓN DE DIAPOSITIVAS ---
+
+    // --- MÓDULO 1: NAVEGACIÓN DE DIAPOSITIVAS ---
+
+    // Selección de todos los elementos necesarios del HTML
     const slides = document.querySelectorAll('.slide');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    
+    // Variables para controlar el estado de la presentación
     let currentSlide = 0;
     const totalSlides = slides.length;
 
+    // Función para mostrar una diapositiva específica
     function showSlide(index) {
+        // Primero, oculta todas las diapositivas quitando la clase 'active'
         slides.forEach((slide) => slide.classList.remove('active'));
-        if (slides[index]) slides[index].classList.add('active');
+        // Luego, muestra solo la diapositiva del índice deseado añadiendo la clase 'active'
+        if (slides[index]) {
+            slides[index].classList.add('active');
+        }
     }
 
+    // Función para ir a la siguiente diapositiva
     function nextSlide() {
+        // El operador '%' (módulo) asegura que el contador vuelva a 0 al llegar al final, creando un bucle.
         currentSlide = (currentSlide + 1) % totalSlides;
         showSlide(currentSlide);
     }
 
+    // Función para ir a la diapositiva anterior
     function prevSlide() {
+        // Lógica para retroceder y volver al final si estamos en la primera diapositiva.
         currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
         showSlide(currentSlide);
     }
 
+    // Asignación de los eventos a los botones y a las teclas del teclado
     prevBtn.addEventListener('click', prevSlide);
     nextBtn.addEventListener('click', nextSlide);
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight') nextSlide();
         else if (e.key === 'ArrowLeft') prevSlide();
     });
+
+    // Muestra la primera diapositiva al cargar la página
     showSlide(currentSlide);
 
-    // --- LÓGICA DE POP-UPS ---
+    // --- MÓDULO 2: LÓGICA DE POP-UPS Y MODALES ---
+
     const popupOverlay = document.getElementById('popup-overlay');
+    // Selecciona todos los elementos que pueden activar un pop-up
     const triggers = document.querySelectorAll('.author-trigger, .info-button');
 
+    // Objeto que contiene toda la información de los pop-ups. Es como una base de datos.
     const popupContents = {
         // Autores
         galtung: { type: 'author', title: 'Johan Galtung', text: 'Sociólogo noruego, fundador de los estudios sobre la paz. Diferenció entre paz negativa (ausencia de guerra) y paz positiva (presencia de justicia y equidad), y conceptualizó la violencia directa, estructural y cultural.', colorClass: 'bg-popup-galtung' },
@@ -53,13 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
         'gt-paz': { type: 'case', title: 'Aprendizajes Clave', text: '<p class="text-left">La guerra civil dejó más de <strong>200,000 personas asesinadas</strong>, de las cuales el 83% eran mayas. La Comisión para el Esclarecimiento Histórico (CEH) concluyó que el 93% de las violaciones a los DDHH fueron perpetradas por fuerzas estatales y grupos paramilitares. El principal aprendizaje de Guatemala es el desafío de la <strong>implementación</strong>: aunque los acuerdos eran ambiciosos en derechos indígenas y reformas sociales, su cumplimiento ha sido limitado por falta de voluntad política y la persistencia de las estructuras de poder.</p>', colorClass: 'bg-popup-lederach case-modal' }
     };
 
+    // Asigna el evento de clic a cada activador de pop-up
     triggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
-            e.stopPropagation();
+            e.stopPropagation(); // Evita que el clic se propague a otros elementos
             const popupId = trigger.dataset.popup || trigger.dataset.modal;
             const content = popupContents[popupId];
             
             if (content) {
+                // Construye el HTML del pop-up dinámicamente
                 popupOverlay.innerHTML = `
                     <div class="popup-content ${content.colorClass}">
                         <span class="popup-close">&times;</span>
@@ -67,24 +91,29 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="text-lg">${content.text}</div>
                     </div>
                 `;
+                // Muestra el pop-up
                 popupOverlay.classList.add('visible');
             }
         });
     });
 
+    // Evento para cerrar el pop-up
     popupOverlay.addEventListener('click', function(e) {
+        // Se cierra si se hace clic en el fondo oscuro (overlay) o en el botón de cerrar (X)
         if (e.target === this || e.target.classList.contains('popup-close')) {
             this.classList.remove('visible');
         }
     });
 
-    // --- ANIMACIÓN DE FONDO ---
+    // --- MÓDULO 3: ANIMACIÓN DE FONDO (CANVAS) ---
+
     const canvas = document.getElementById('dynamic-background');
     const ctx = canvas.getContext('2d');
     let width, height, circles;
     const circleCount = 20;
     const colors = ['#8A2B74', '#B8321B', '#e48a31', '#f2c03b', '#5a1a1a'];
 
+    // Función para ajustar el tamaño del canvas a la ventana
     function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
@@ -92,39 +121,45 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < circleCount; i++) circles.push(new Circle());
     }
 
+    // Clase que define cómo es y cómo se comporta cada círculo
     class Circle {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 1;
-            this.vy = (Math.random() - 0.5) * 1;
+            this.vx = (Math.random() - 0.5) * 1; // Velocidad horizontal
+            this.vy = (Math.random() - 0.5) * 1; // Velocidad vertical
             this.radius = Math.random() * 40 + 10;
             this.color = colors[Math.floor(Math.random() * colors.length)];
         }
         update() {
             this.x += this.vx;
             this.y += this.vy;
+            // Lógica para que los círculos reboten en los bordes
             if (this.x - this.radius < 0 || this.x + this.radius > width) this.vx *= -1;
             if (this.y - this.radius < 0 || this.y + this.radius > height) this.vy *= -1;
         }
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = this.color + '60';
+            ctx.fillStyle = this.color + '60'; // Añade transparencia al color
             ctx.fill();
         }
     }
 
+    // Bucle de animación que se ejecuta continuamente
     function animate() {
-        ctx.clearRect(0, 0, width, height);
+        ctx.clearRect(0, 0, width, height); // Limpia el canvas en cada fotograma
         circles.forEach(c => {
             c.update();
             c.draw();
         });
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animate); // Llama a la función de nuevo para el siguiente fotograma
     }
 
+    // Evento para reajustar la animación si cambia el tamaño de la ventana
     window.addEventListener('resize', resize);
+    
+    // Inicia todo el proceso
     resize();
     animate();
 });
