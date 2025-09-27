@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Navegación de slides
+    // --- NAVEGACIÓN DE DIAPOSITIVAS ---
     const slides = document.querySelectorAll('.slide');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     showSlide(currentSlide);
 
-    // Lógica de Pop-ups
+    // --- LÓGICA DE POP-UPS ---
     const popupOverlay = document.getElementById('popup-overlay');
     const triggers = document.querySelectorAll('.author-trigger, .info-button');
 
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Script para el fondo de círculos
+    // --- ANIMACIÓN DE FONDO ---
     const canvas = document.getElementById('dynamic-background');
     const ctx = canvas.getContext('2d');
     let width, height, circles;
@@ -128,3 +128,4 @@ document.addEventListener('DOMContentLoaded', () => {
     resize();
     animate();
 });
+
